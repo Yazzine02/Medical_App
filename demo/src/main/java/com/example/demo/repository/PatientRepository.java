@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
     List<Patient> findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus waitingRoomStatus, LocalDate waitingRoomDate);
+
+    Optional<Patient> findByCin(String cin);
 }

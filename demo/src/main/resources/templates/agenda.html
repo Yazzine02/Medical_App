@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Agenda</title>
+      <!-- Link to CSS -->
+      <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+      <!-- Link to Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+      <!-- Font Awesome for Icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <nav id="sidebar" class="bg-dark text-light">
+        <div class="sidebar-header">
+          <h3>Medical App</h3>
+          <span class="collapsed-icon">M</span>
+        </div>
+        <ul class="list-unstyled components">
+          <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+          <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+          <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+          <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+          <li><a href="/consultation-list"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Page Content -->
+      <div id="content" class="p-4">
+        <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+      </div>
+    </div>
+    <script th:src="@{/js/scripts.js}"></script>
+  </body>
+</html>
