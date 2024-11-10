@@ -50,3 +50,54 @@
 #content.expanded {
     margin-left: 80px;
 }
+
+/* Sidebar styles */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+#sidebar.collapsed {
+    min-width: 80px;
+    max-width: 80px;
+}
+#content {
+    margin-left: 250px;
+    transition: all 0.3s;
+}
+#content.expanded {
+    margin-left: 80px;
+}
+
+/* Header adjustments for collapsed state */
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    transition: opacity 0.3s;
+}
+#sidebar.collapsed .sidebar-header h3 {
+    display: none; /* Hide "Medical App" text when collapsed */
+}
+#sidebar.collapsed .sidebar-header .collapsed-icon {
+    display: inline-block;
+    font-size: 2rem; /* Large "M" when sidebar is collapsed */
+}
+.collapsed-icon {
+    display: none; /* Hide large "M" in expanded state */
+}
+
+/* Adjust text and icon sizes */
+#sidebar .components li a {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+#sidebar .components li a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+#sidebar.collapsed .components li a {
+    justify-content: center;
+}
+#sidebar.collapsed .components li a span {
+    display: none;
+}
