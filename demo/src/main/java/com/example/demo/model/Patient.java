@@ -111,4 +111,12 @@ public class Patient {
     public void setCin(String cin) {
         this.cin = cin;
     }
+
+    public LocalDate getWaitingRoomDate() {
+        return waitingRoomDate;
+    }
+
+    public void setWaitingRoomDate(LocalDate waitingRoomDate) {
+        this.waitingRoomDate = waitingRoomDate;
+    }
 }
