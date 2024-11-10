@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Waiting Rooms</title>
+
+    <!-- Link to CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+    <!-- Link to Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Sidebar styles */
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            transition: all 0.3s;
+        }
+        #sidebar.collapsed {
+            min-width: 80px;
+            max-width: 80px;
+        }
+        #content {
+            margin-left: 250px;
+            transition: all 0.3s;
+        }
+        #content.expanded {
+            margin-left: 80px;
+        }
+
+        /* Header adjustments for collapsed state */
+        .sidebar-header h3 {
+            font-size: 1.5rem;
+            transition: opacity 0.3s;
+        }
+        #sidebar.collapsed .sidebar-header h3 {
+            display: none; /* Hide "Medical App" text when collapsed */
+        }
+        #sidebar.collapsed .sidebar-header .collapsed-icon {
+            display: inline-block;
+            font-size: 2rem; /* Large "M" when sidebar is collapsed */
+        }
+        .collapsed-icon {
+            display: none; /* Hide large "M" in expanded state */
+        }
+
+        /* Adjust text and icon sizes */
+        #sidebar .components li a {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        #sidebar .components li a i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        #sidebar.collapsed .components li a {
+            justify-content: center;
+        }
+        #sidebar.collapsed .components li a span {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Sidebar -->
+<div class="d-flex">
+    <nav id="sidebar" class="bg-dark text-light">
+        <div class="sidebar-header">
+            <h3>Medical App</h3>
+            <span class="collapsed-icon">M</span>
+        </div>
+        <ul class="list-unstyled components">
+            <li><a href="#"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+            <li><a href="#"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+            <li><a href="#"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content" class="p-4">
+        <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+        <div class="container">
+            <h1 class="mt-4">Patients in the Waiting Room</h1>
+
+            <div class="btn-group mt-4">
+                <button class="btn btn-success" onclick="window.location.href='/add-to-waiting-room'">Add Patient to Waiting Room</button>
+                <button class="btn btn-primary" onclick="filterPatients('WAITING')">Waiting</button>
+                <button class="btn btn-primary" onclick="filterPatients('COMPLETED')">Completed</button>
+                <button class="btn btn-primary" onclick="filterPatients('CANCELLED')">Cancelled</button>
+            </div>
+
+            <table class="table table-hover mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">Patient ID</th>
+                        <th scope="col">CIN</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Birth Date</th>
+                        <th scope="col">Credit</th>
+                    </tr>
+                </thead>
+                <tbody id="patientTableBody">
+                    <!-- Patient rows will be dynamically generated here -->
+                    <tr th:each="patient: ${waitingPatients}">
+                        <td th:text="${patient.id}"></td>
+                        <td th:text="${patient.cin}"></td>
+                        <td th:text="${patient.firstName}"></td>
+                        <td th:text="${patient.lastName}"></td>
+                        <td th:text="${patient.birthDate}"></td>
+                        <td th:text="${patient.credit}"></td>
+                        <td th:text="${patient.waitingRoomStatus}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Link to jQuery and Bootstrap JS -->
+<script>
+    // JavaScript for Sidebar Toggle
+    document.getElementById('sidebarToggle').onclick = function() {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        sidebar.classList.toggle('collapsed');
+        content.classList.toggle('expanded');
+    };
+
+    function filterPatients(status) {
+        fetch(`/waiting-room/patients?status=` + status)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById("patientTableBody");
+                tableBody.innerHTML = ""; // Clear existing rows
+
+                data.forEach(patient => {
+                    const row = `<tr>
+                                            <td>${patient.id}</td>
+                                            <td>${patient.cin}</td>
+                                            <td>${patient.firstName}</td>
+                                            <td>${patient.lastName}</td>
+                                            <td>${patient.birthDate}</td>
+                                            <td>${patient.credit}</td>
+                                            <td>${patient.waitingRoomStatus}</td>
+                                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error("Error fetching patients:", error));
+    }
+</script>
+</body>
+</html>
