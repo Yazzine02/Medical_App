@@ -13,4 +13,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     List<Patient> findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus waitingRoomStatus, LocalDate waitingRoomDate);
 
     Optional<Patient> findByCin(String cin);
+
+    Optional<Patient> findById(Integer id);
 }

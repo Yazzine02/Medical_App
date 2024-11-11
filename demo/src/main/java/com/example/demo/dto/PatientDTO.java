@@ -5,7 +5,7 @@ import com.example.demo.model.Patient;
 import java.time.LocalDate;
 
 public class PatientDTO {
-    private Integer patientId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String cin;
@@ -13,13 +13,26 @@ public class PatientDTO {
     private double credit;
     private LocalDate waitingRoomDate;
     private Patient.WaitingRoomStatus waitingRoomStatus;
+    // Payments and Appointments
 
-    public Integer getPatientId() {
-        return patientId;
+    public PatientDTO(Patient patient) {
+        this.id = patient.getId();
+        this.firstName = patient.getFirstName();
+        this.lastName = patient.getLastName();
+        this.cin = patient.getCin();
+        this.birthDate = patient.getBirthDate();
+        this.credit = patient.getCredit();
+        this.waitingRoomStatus = patient.getWaitingRoomStatus();
+        this.waitingRoomDate = patient.getWaitingRoomDate();
+        // Payments and Appointments
     }
 
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Patient.WaitingRoomStatus getWaitingRoomStatus() {

@@ -26,12 +26,8 @@ public class WaitingRoomController {
         // Do I really need to find it all the patients or should I just feed it the default waiting patients then let the controller do its work ?
         // find patients with status = waiting, completed and canceled of today
         List<Patient> waitingPatients = patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus.WAITING, today);
-        List<Patient> completedPatients = patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus.COMPLETED, today);
-        List<Patient> canceledPatients = patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus.CANCELLED, today);
         // Feed the objects to the model
         model.addAttribute("waitingPatients", waitingPatients);
-        model.addAttribute("completedPatients", completedPatients);
-        model.addAttribute("canceledPatients", canceledPatients);
 
         return "waiting-room";
     }

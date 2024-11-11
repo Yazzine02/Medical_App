@@ -14,7 +14,7 @@ function filterPatients(status) {
             tableBody.innerHTML = ""; // Clear existing rows
 
             data.forEach(patient => {
-                const row = `<tr>
+                const row = `    <tr>
                                             <td>${patient.id}</td>
                                             <td>${patient.cin}</td>
                                             <td>${patient.firstName}</td>
@@ -22,7 +22,17 @@ function filterPatients(status) {
                                             <td>${patient.birthDate}</td>
                                             <td>${patient.credit}</td>
                                             <td>${patient.waitingRoomStatus}</td>
-                                        </tr>`;
+                                            <!--IMPLEMENT CRUD-->
+                                            <td>
+                                                <!-- Select Button (View Profile) -->
+                                                <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>
+                                                <!-- Modify Button (Edit Profile) -->
+                                                <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>
+                                                <!-- Delete Button (Delete with Confirmation) 
+                                                <button type="button" class="btn btn-danger" onclick="confirmDelete([[${patient.id}]])">Delete</button>
+                                                -->
+                                            </td>
+                                       </tr>`;
                 tableBody.innerHTML += row;
             });
         })

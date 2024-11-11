@@ -22,11 +22,11 @@
         <span class="collapsed-icon">M</span>
       </div>
       <ul class="list-unstyled components">
-        <li><a href="#"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
-        <li><a href="#"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
-        <li><a href="#"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
-        <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
-        <li><a href="#"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+        <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+        <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+        <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+        <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+        <li><a href="/consultation-list"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
       </ul>
     </nav>
     <!-- Page content -->
@@ -62,7 +62,7 @@
 
             <div class="mb-2">
               <button type="submit" class="btn btn-success" onclick="submitPatientForm()">Submit</button>
-              <button type="submit" class="btn btn-danger">Cancel</button>
+              <button type="submit" class="btn btn-danger" onclick="window.location.href='/waiting-room'">Cancel</button>
             </div>
 
           </form>

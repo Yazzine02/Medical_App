@@ -72,6 +72,12 @@
                                 <td th:text="${patient.birthDate}"></td>
                                 <td th:text="${patient.credit}"></td>
                                 <td th:text="${patient.waitingRoomStatus}"></td>
+                                <!--IMPLEMENT CRUD-->
+                                <td>
+                                    <button class="btn btn-primary" type="submit" name="patientId" th:value="${patient.id}">Select</button>
+                                    <button class="btn btn-info" type="submit" name="patientId" th:value="${patient.id}">Modify</button>
+                                    <button class="btn btn-danger" type="submit" name="patientId" th:value="${patient.id}">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

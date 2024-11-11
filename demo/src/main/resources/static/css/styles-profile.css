@@ -1,0 +1,160 @@
+/* Sidebar styling */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    transition: all 0.3s;
+    position: fixed;
+    z-index: 1000;
+}
+
+#sidebar.collapsed {
+    min-width: 80px;
+    max-width: 80px;
+}
+
+#sidebar .sidebar-header h3,
+#sidebar ul.components li a {
+    padding-left: 20px;
+    white-space: nowrap;
+}
+
+#sidebar.collapsed .sidebar-header h3,
+#sidebar.collapsed ul.components li a {
+    padding-left: 10px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    color: #ffffff;
+    padding: 10px;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover {
+    background: #007bff;
+    color: #ffffff;
+}
+
+/* Content styling */
+#content {
+    transition: margin-left 0.3s;
+    margin-left: 250px;
+    width: 100%;
+}
+
+#content.expanded {
+    margin-left: 80px;
+}
+
+/* Sidebar styles */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+#sidebar.collapsed {
+    min-width: 80px;
+    max-width: 80px;
+}
+#content {
+    margin-left: 250px;
+    transition: all 0.3s;
+}
+#content.expanded {
+    margin-left: 80px;
+}
+
+/* Header adjustments for collapsed state */
+.sidebar-header h3 {
+    font-size: 1.5rem;
+    transition: opacity 0.3s;
+}
+#sidebar.collapsed .sidebar-header h3 {
+    display: none; /* Hide "Medical App" text when collapsed */
+}
+#sidebar.collapsed .sidebar-header .collapsed-icon {
+    display: inline-block;
+    font-size: 2rem; /* Large "M" when sidebar is collapsed */
+}
+.collapsed-icon {
+    display: none; /* Hide large "M" in expanded state */
+}
+
+/* Adjust text and icon sizes */
+#sidebar .components li a {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+#sidebar .components li a i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+#sidebar.collapsed .components li a {
+    justify-content: center;
+}
+#sidebar.collapsed .components li a span {
+    display: none;
+}
+
+body {
+    background: rgb(99, 39, 120)
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
+
+.labels {
+    font-weight: bold;
+    color: #333;
+    font-size: 15px;
+}
+
+.profile-button {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+}

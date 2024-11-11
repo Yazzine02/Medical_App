@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Patient Profile</title>
+        <!-- Link to CSS -->
+        <link rel="stylesheet" th:href="@{/css/styles-profile.css}">
+        <!-- Link to Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Font Awesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-dark text-light">
+                <div class="sidebar-header">
+                    <h3>Medical App</h3>
+                    <span class="collapsed-icon">M</span>
+                </div>
+                <ul class="list-unstyled components">
+                    <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+                    <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+                    <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+                    <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+                    <li><a href="/consultation-list"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+                </ul>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content" class="p-4">
+                <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+                <div class="container-fluid">
+                    <h1 class="mt-4 mb-4">Patient Profile</h1>
+
+                    <div class="btn-group mb-4">
+                        <button class="btn btn-success" onclick="window.location.href='/patient-list'">Return to Patient List</button>
+                    </div>
+
+                    <div class="container-lg rounded bg-white py-5 px-4 shadow-lg">
+                        <div class="row justify-content-center">
+                            <div class="col-md-3 text-center">
+                                <div class="d-flex flex-column align-items-center p-4">
+                                    <img class="rounded-circle mb-3" width="200px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile Image">
+                                </div>
+                            </div>
+
+                            <div class="col-md-7">
+                                <div class="p-4">
+                                    <h4 class="text-secondary mb-4">Patient Details</h4>
+
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3"><label class="labels">ID:</label> <span th:text="${patient.id}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">First Name:</label> <span th:text="${patient.firstName}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">Last Name:</label> <span th:text="${patient.lastName}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">CIN:</label> <span th:text="${patient.cin}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">Birthdate:</label> <span th:text="${patient.birthDate}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">Credit:</label> <span th:text="${patient.credit}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">Waiting Room Status:</label> <span th:text="${patient.waitingRoomStatus}"></span></div>
+                                        <div class="col-md-12 mb-3"><label class="labels">Waiting Room Date:</label> <span th:text="${patient.waitingRoomDate}"></span></div>
+                                    </div>
+
+                                    <div class="mt-4 text-center">
+                                        <button class="btn btn-primary profile-button" type="button">Modify</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/scripts.js}"></script>
+    </body>
+</html>
