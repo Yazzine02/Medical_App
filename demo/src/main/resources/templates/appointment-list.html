@@ -5,12 +5,11 @@
         <title>List Of Appointments</title>
         <!-- Link to CSS -->
         <link rel="stylesheet" th:href="@{/css/styles.css}">
-
         <!-- Link to Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
         <!-- Font Awesome for Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     </head>
     <body>
         <div class="d-flex">
@@ -32,6 +31,48 @@
             <!-- Page Content -->
             <div id="content" class="p-4">
                 <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+                <div class="container">
+                    <h1 class="mt-4">List Of Appointments:</h1>
+
+                    <div class="btn-group mt-1">
+                        <button class="btn btn-success" onclick="window.location.href='/add-appointment'">Add New Appointment</button>
+                    </div>
+
+                    <table class="table table-hover mt-6">
+                        <thead>
+                        <tr>
+                            <th scope="col">Appointment ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Patient ID</th>
+                            <th scope="col">Patient CIN</th>
+                            <th scope="col">Payments</th>
+                        </tr>
+                        </thead>
+                        <tbody id="patientTableBody">
+                        <!-- Patient rows will be dynamically generated here -->
+                        <tr th:each="appointment: ${appointments}">
+                            <td th:text="${appointment.id}"></td>
+                            <td th:text="${appointment.appointmentDateTime}"></td>
+                            <td th:text="${appointment.description}"></td>
+                            <td th:text="${appointment.patient.id}"></td>
+                            <td th:text="${appointment.patient.cin}"></td>
+                            <!-- Payments -->
+                            <!--IMPLEMENT CRUD-->
+
+                            <td>
+                                <!-- View Button (View Appointment) -->
+                                <!--<a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>-->
+                                <!-- Modify Button (Edit Appointment) -->
+                                <!--<a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>-->
+                                <!-- Delete Button (Delete with Confirmation)-->
+                                <!--<button type="button" class="btn btn-danger" onclick="confirmDelete([[${patient.id}]])">Delete</button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <script th:src="@{/js/scripts.js}"></script>

@@ -29,25 +29,40 @@ public class PatientController {
     private PatientService patientService;
     // Patient profile
     @GetMapping("/patient-profile/{id}")
-    public String viwPatientProfile(@PathVariable Integer id, Model model) {
+    public String viewPatientProfile(@PathVariable Integer id, Model model) {
         PatientDTO patientDto =  patientService.getPatientById(id);
         model.addAttribute("patient", patientDto);
         return "patient-profile";
     }
-    // Modify patient profile
-    @GetMapping("/modify-patient/{id}")
-    public String modifyPatientProfile(@PathVariable Integer id, Model model) {
-        PatientDTO patientDto = patientService.getPatientById(id);
-        model.addAttribute("patient", patientDto);
-        return "modify-patient";
+    // Add Patient
+    @GetMapping("/add-patient")
+    public String addPatient() {
+        return "add-patient";
     }
-    @PostMapping("/modify-patient/{id}")
-    public String modifyPatient(@PathVariable Integer id, @ModelAttribute PatientDTO patientDto) {
-        patientService.modifyPatient(id, patientDto);
+    @PostMapping("/add-patient")
+    public String addPatient(@ModelAttribute("patient") PatientDTO patientDto) {
+        patientService.addPatient(patientDto);
+        return "redirect:/patient-list";
+    }
+    // Modify patient profile
+    @GetMapping("/patient-modify/{id}")
+    public String showModifyPatientForm(@PathVariable Integer id, Model model) {
+        PatientDTO patientDto = patientService.getPatientById(id);
+        if (patientDto == null) {
+            // Add error handling if patient not found
+            model.addAttribute("errorMessage", "Patient not found");
+            return "error-page";  // Return an error page or a suitable fallback
+        }
+        model.addAttribute("patient", patientDto);
+        return "patient-modify";
+    }
+    @PostMapping("/patient-modify/{id}")
+    public String modifyPatient(@ModelAttribute("patient") PatientDTO patientDto) {
+        patientService.updatePatient(patientDto.getId(), patientDto);
         return "redirect:/patient-list";
     }
     // Delete patient
-    @GetMapping("/delete-patient/{id}")
+    @GetMapping("/patient-delete/{id}")
     public String deletePatient(@PathVariable Integer id) {
         patientService.deletePatient(id);
         return "redirect:/patient-list";

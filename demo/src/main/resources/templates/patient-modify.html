@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Patient Profile</title>
+        <title>Modify Patient</title>
         <!-- Link to CSS -->
         <link rel="stylesheet" th:href="@{/css/styles-profile.css}">
         <!-- Link to Bootstrap -->
@@ -32,7 +32,7 @@
                 <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
 
                 <div class="container-fluid">
-                    <h1 class="mt-4 mb-4">Patient Profile</h1>
+                    <h1 class="mt-4 mb-4">Modify Patient Information</h1>
 
                     <div class="btn-group mb-4">
                         <button class="btn btn-success" onclick="window.location.href='/patient-list'">Return to Patient List</button>
@@ -51,19 +51,34 @@
                                     <h4 class="text-secondary mb-4">Patient Details</h4>
 
                                     <div class="row">
-                                        <div class="col-md-12 mb-3"><label class="labels">ID:</label> <span th:text="${patient.id}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">First Name:</label> <span th:text="${patient.firstName}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">Last Name:</label> <span th:text="${patient.lastName}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">CIN:</label> <span th:text="${patient.cin}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">Birthdate:</label> <span th:text="${patient.birthDate}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">Credit:</label> <span th:text="${patient.credit}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">Waiting Room Status:</label> <span th:text="${patient.waitingRoomStatus}"></span></div>
-                                        <div class="col-md-12 mb-3"><label class="labels">Waiting Room Date:</label> <span th:text="${patient.waitingRoomDate}"></span></div>
-                                    </div>
-
-                                    <div class="mt-4 text-center">
-                                        <!-- Modify Button (Edit Profile) -->
-                                        <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>
+                                        <form th:action="@{/patient-modify/{id}(id=${patient.id})}" th:object="${patient}" method="post">
+                                            <input type="hidden" th:field="*{id}"/>
+                                            <div class="col-md-12 mb-3">
+                                                <!-- NOT FEEDING THE FORM WITH AN ID GIVES AN ERROR: PATIENT.GETID IS NULL -->
+                                                <!-- SOLUTION: ADD A HIDDEN INPUT FOR ID -->
+                                                <label class="labels">ID:</label>
+                                                <span th:text="${patient.id}"></span>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label class="labels" for="firstName">First Name: </label>
+                                                <input type="text" th:field="*{firstName}" id="firstName" required/>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label class="labels" for="lastName">Last Name: </label>
+                                                <input type="text" th:field="*{lastName}" id="lastName" required/>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label class="labels" for="cin">CIN: </label>
+                                                <input type="text" th:field="*{cin}" id="cin" required/>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label class="labels" for="birthDate">Birthdate:</label>
+                                                <input type="date" th:field="*{birthDate}" id="birthDate" required/>
+                                            </div>
+                                            <div class="mt-4 text-center">
+                                                <button class="btn btn-primary profile-button" type="submit">Save Changes</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

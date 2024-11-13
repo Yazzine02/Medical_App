@@ -16,14 +16,16 @@ public class PatientDTO {
     // Payments and Appointments
 
     public PatientDTO(Patient patient) {
-        this.id = patient.getId();
-        this.firstName = patient.getFirstName();
-        this.lastName = patient.getLastName();
-        this.cin = patient.getCin();
-        this.birthDate = patient.getBirthDate();
-        this.credit = patient.getCredit();
-        this.waitingRoomStatus = patient.getWaitingRoomStatus();
-        this.waitingRoomDate = patient.getWaitingRoomDate();
+        if(patient != null) {
+            this.id = patient.getId();
+            this.firstName = patient.getFirstName();
+            this.lastName = patient.getLastName();
+            this.cin = patient.getCin();
+            this.birthDate = patient.getBirthDate();
+            this.credit = patient.getCredit();
+            this.waitingRoomStatus = patient.getWaitingRoomStatus();
+            this.waitingRoomDate = patient.getWaitingRoomDate();
+        }
         // Payments and Appointments
     }
 
