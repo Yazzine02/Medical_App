@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,13 +13,15 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique=true, nullable=false)
+    @Column(name = "appointment_date_time", unique=true, nullable=false)
     private LocalDateTime appointmentDateTime;
 
+    @Column(name = "description", length = 255)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @JoinColumn(name = "patient_id")
+    @JsonBackReference
     private Patient patient;
 
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)

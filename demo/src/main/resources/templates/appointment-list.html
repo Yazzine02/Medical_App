@@ -47,28 +47,16 @@
                             <th scope="col">Description</th>
                             <th scope="col">Patient ID</th>
                             <th scope="col">Patient CIN</th>
-                            <th scope="col">Payments</th>
                         </tr>
                         </thead>
                         <tbody id="patientTableBody">
-                        <!-- Patient rows will be dynamically generated here -->
-                        <tr th:each="appointment: ${appointments}">
+                        <!-- Appointment rows will be dynamically generated here -->
+                        <tr th:each="appointment : ${appointments}">
                             <td th:text="${appointment.id}"></td>
                             <td th:text="${appointment.appointmentDateTime}"></td>
                             <td th:text="${appointment.description}"></td>
                             <td th:text="${appointment.patient.id}"></td>
-                            <td th:text="${appointment.patient.cin}"></td>
-                            <!-- Payments -->
-                            <!--IMPLEMENT CRUD-->
-
-                            <td>
-                                <!-- View Button (View Appointment) -->
-                                <!--<a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>-->
-                                <!-- Modify Button (Edit Appointment) -->
-                                <!--<a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>-->
-                                <!-- Delete Button (Delete with Confirmation)-->
-                                <!--<button type="button" class="btn btn-danger" onclick="confirmDelete([[${patient.id}]])">Delete</button>-->
-                            </td>
+                            <td th:text="${appointment.patient.getCin()}"></td>
                         </tr>
                         </tbody>
                     </table>
