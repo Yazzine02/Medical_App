@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Appointment;
 import com.example.demo.repository.AppointmentRepository;
+import com.example.demo.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
 public class AppointmentController {
     @Autowired
     private AppointmentRepository appointmentRepository;
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping("/appointment-list")
     public String appointmentList(Model model) {
@@ -28,5 +32,9 @@ public class AppointmentController {
         return "add-appointment";
     }
     @PostMapping("/add-appointment")
-    public void addAppointment(@ModelAttribute("appointment") Appointment appointment) {}
+    public String addAppointment(@ModelAttribute("appointment") Appointment appointment, @RequestParam("patientId") int patientId) {
+        appointmentService.addAppointment(appointment, patientId);
+        return "redirect:/appointment-list";
+    }
+
 }
