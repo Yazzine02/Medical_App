@@ -3,14 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home - Waiting Rooms</title>
-
+        <title>Waiting Room</title>
         <!-- Link to CSS -->
         <link rel="stylesheet" th:href="@{/css/styles.css}">
-
         <!-- Link to Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
         <!-- Font Awesome for Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -74,11 +71,10 @@
                                 <td th:text="${patient.waitingRoomStatus}"></td>
                                 <!--IMPLEMENT CRUD-->
                                 <td>
-                                    <!-- Select Button (View Profile) -->
-                                    <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>
-                                    <!-- Modify Button (Edit Profile) -->
-                                    <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>
-                                    <!-- Delete Button (Delete Profile) -->
+                                    <!-- Select Button (Makes the status completed + generates consultation) -->
+                                    <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-info">Select</a>
+                                    <!-- Delete Button (Makes the status cancelled) -->
+                                    <a th:href="@{/appointment-remove/{id}(id=${patient.waitingRoomStatus})">Cancel</a>
                                 </td>
                             </tr>
                         </tbody>

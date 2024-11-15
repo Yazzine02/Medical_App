@@ -34,4 +34,25 @@ public class AppointmentService {
         }
     }
 
+    public void updateAppointment(Integer id, Appointment appointment) {
+        Appointment existingAppointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with ID: " + id));
+        existingAppointment.setAppointmentDateTime(appointment.getAppointmentDateTime());
+        existingAppointment.setDescription(appointment.getDescription());
+        appointmentRepository.save(existingAppointment);
+    }
+
+    public void deleteAppointment(Integer id) {
+        if(appointmentRepository.existsById(id)) {
+            appointmentRepository.deleteById(id);
+        }
+        else {
+            throw new IllegalArgumentException("Appointment not found with ID: " + id);
+        }
+    }
+
+    public Appointment getAppointmentById(Integer id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found with ID: " + id));
+    }
 }

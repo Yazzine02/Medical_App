@@ -51,7 +51,7 @@ public class PatientController {
         if (patientDto == null) {
             // Add error handling if patient not found
             model.addAttribute("errorMessage", "Patient not found");
-            return "error-page";  // Return an error page or a suitable fallback
+            return "error-page";
         }
         model.addAttribute("patient", patientDto);
         return "patient-modify";

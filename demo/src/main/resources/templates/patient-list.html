@@ -66,9 +66,8 @@
                     <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>
                     <!-- Modify Button (Edit Profile) -->
                     <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>
-                    <!-- Delete Button (Delete with Confirmation)
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete([[${patient.id}]])">Delete</button>
-                    -->
+                    <!-- Delete Button (Delete with Confirmation) -->
+                    <a th:href="@{/patient-delete/{id}(id=${patient.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this patient?')">Delete</a>
                   </td>
                 </tr>
               </tbody>

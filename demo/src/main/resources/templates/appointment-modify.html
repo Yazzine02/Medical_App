@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Modify Appointment</title>
+        <!-- Link to CSS -->
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <!-- Link to Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Font Awesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-dark text-light">
+                <div class="sidebar-header">
+                    <h3>Medical App</h3>
+                    <span class="collapsed-icon">M</span>
+                </div>
+                <ul class="list-unstyled components">
+                    <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+                    <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+                    <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+                    <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+                    <li><a href="/consultation-list"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+                </ul>
+            </nav>
+            <!-- Page content -->
+            <div id="content" class="p-4">
+
+                <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+                <div class="container">
+
+                    <h1 class="mt-4">Modify Appointment</h1>
+                    <div class="container">
+                        <form th:action="@{/appointment-modify/{id}(id=${appointment.id})}" th:object="${appointment}" method="POST">
+                            <div class="mb-3">
+                                <label for="appointmentDateTime">Appointment Date Time:</label>
+                                <input type="datetime-local" id="appointmentDateTime" th:field="*{appointmentDateTime}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description">Description:</label>
+                                <input type="text" id="description" th:field="*{description}" maxlength="255" required>
+                            </div>
+                            <div class="mb-2">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-danger" onclick="window.location.href='/appointment-list'">Cancel</button>
+                            </div>
+                            <!-- The following code was causing a problem because of redundant object prefix in th:field -->
+                            <!-- Issue example: <input type="datetime-local" th:field="*{appointment.appointmentDateTime}" /> -->
+                            <!-- Solution: <input type="datetime-local" th:field="*{appointmentDateTime}" /> -->
+                            <!--
+                            <div class="mb-3">
+                                <input id="appointmentId" type="hidden" th:field="*{appointment.id}"/>
+                                <label for="appointmentId">Appointment ID:</label>
+                                <span th:text="${appointment.id}"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="appointmentDateTime">Appointment Date Time:</label>
+                                <input type="datetime-local" id="appointmentDateTime" name="appointmentDateTime" th:field="*{appointment.appointmentDateTime}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description">Description:</label>
+                                <input type="text" id="description" name="description" th:field="*{appointment.description}" maxlength="255" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input id="patientId" type="hidden" th:field="*{appointment.patient.id}"/>
+                                <label for="patientId">Patient ID:</label>
+                                <span th:text="${appointment.patient.id}"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <input id="patientCin" type="hidden" th:field="*{appointment.patient.cin}"/>
+                                <label for="patientCin">Patient CIN:</label>
+                                <span th:text="${appointment.patient.cin}"></span>
+                            </div>
+
+                            <div class="mb-2">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-danger" onclick="window.location.href='/appointment-list'">Cancel</button>
+                            </div>-->
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:src="@{/js/scripts.js}"></script>
+    </body>
+</html>

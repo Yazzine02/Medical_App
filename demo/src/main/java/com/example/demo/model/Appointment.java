@@ -27,6 +27,7 @@ public class Appointment {
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
+
     public Integer getId() {
         return id;
     }
