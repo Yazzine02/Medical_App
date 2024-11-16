@@ -30,8 +30,35 @@
       <!-- Page Content -->
       <div id="content" class="p-4">
         <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
-
-
+        <h1 class="mt-4">Weekly Agenda</h1>
+        <!-- Display each day of the week -->
+        <div class="agenda">
+          <table class="table table-hover mt-7">
+            <thead>
+              <tr>
+                <th scope="col" th:each="day : ${weekDays}" th:text="${day}">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td th:each="day : ${weekDays}">
+                  <ul th:if="${appointmentsGroupedByDay.containsKey(day)}">
+                    <!-- Loop through appointments for the day -->
+                    <li th:each="appointment : ${appointmentsGroupedByDay.get(day)}"
+                        th:class="${appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now()) ? 'past-appointment' :
+               (appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now().plusMinutes(30)) ? 'upcoming-appointment' : '')}">
+                      <span th:text="${appointment.appointmentDateTime}"></span>
+                      <span th:text="${appointment.description}"></span>
+                      (Patient: <span th:text="${appointment.patient.cin}"></span>)
+                    </li>
+                  </ul>
+                  <p th:if="${!appointmentsGroupedByDay.containsKey(day)}" class="past-appointment">No Appointments</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <script th:src="@{/js/scripts.js}"></script>

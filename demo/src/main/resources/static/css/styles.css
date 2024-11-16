@@ -101,3 +101,13 @@
 #sidebar.collapsed .components li a span {
     display: none;
 }
+
+.past-appointment {
+    color: gray;
+}
+.ongoing-appointment {
+    background-color: yellow;
+}
+.upcoming-appointment {
+    border: 2px solid red;
+}

@@ -14,4 +14,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
     List<Appointment> findAll();
     List<Appointment> findByPatientId(int patientId);
     Optional<Appointment> findByAppointmentDateTime(LocalDateTime appointmentDateTime);
+
+    List<Appointment> findByAppointmentDateTimeBetweenOrderByAppointmentDateTimeAsc(LocalDateTime start, LocalDateTime end);
+
 }
