@@ -42,9 +42,12 @@
                         <button class="btn btn-success" onclick="window.location.href='/waiting-room/add-old-patient-to-waiting-room'">Add Old Patient</button>
                     </div>
                     <div class="btn-group mt-3">
-                        <button class="btn btn-primary" onclick="filterPatients('WAITING')">Waiting</button>
-                        <button class="btn btn-primary" onclick="filterPatients('COMPLETED')">Completed</button>
-                        <button class="btn btn-primary" onclick="filterPatients('CANCELLED')">Cancelled</button>
+                        <div class="btn-group" role="group">
+                            <!-- Buttons send the selected status to the controller -->
+                            <a th:href="@{/waiting-room/status?status=WAITING}" class="btn btn-primary" th:classappend="${selectedStatus == 'WAITING'} ? 'active' : ''">Waiting</a>
+                            <a th:href="@{/waiting-room/status?status=COMPLETED}" class="btn btn-primary" th:classappend="${selectedStatus == 'COMPLETED'} ? 'active' : ''">Completed</a>
+                            <a th:href="@{/waiting-room/status?status=CANCELLED}" class="btn btn-primary" th:classappend="${selectedStatus == 'CANCELLED'} ? 'active' : ''">Cancelled</a>
+                        </div>
                     </div>
 
                     <table class="table table-hover mt-6">
@@ -61,7 +64,7 @@
                         </thead>
                         <tbody id="patientTableBody">
                             <!-- Patient rows will be dynamically generated here -->
-                            <tr th:each="patient: ${waitingPatients}">
+                            <tr th:each="patient : ${patients}">
                                 <td th:text="${patient.id}"></td>
                                 <td th:text="${patient.cin}"></td>
                                 <td th:text="${patient.firstName}"></td>
@@ -69,12 +72,11 @@
                                 <td th:text="${patient.birthDate}"></td>
                                 <td th:text="${patient.credit}"></td>
                                 <td th:text="${patient.waitingRoomStatus}"></td>
-                                <!--IMPLEMENT CRUD-->
                                 <td>
-                                    <!-- Select Button (Makes the status completed + generates consultation) -->
                                     <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-info">Select</a>
-                                    <!-- Delete Button (Makes the status cancelled) -->
-                                    <a th:href="@{/appointment-remove/{id}(id=${patient.waitingRoomStatus})">Cancel</a>
+                                    <form th:action="@{/waiting-room/cancel/{id}(id=${patient.id})}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this patient?');">
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>

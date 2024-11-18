@@ -14,31 +14,27 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/waiting-room")
 // Defines the base URL for all methods in this controller to localhost:8080/waiting-room
+@RequestMapping("/waiting-room")
 public class WaitingRoomController {
     @Autowired
     private PatientRepository patientRepository;
-
-    @GetMapping("")
-    public String home(Model model) {
-        LocalDate today = LocalDate.now();
-        // Do I really need to find it all the patients or should I just feed it the default waiting patients then let the controller do its work ?
-        // find patients with status = waiting, completed and canceled of today
-        List<Patient> waitingPatients = patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(Patient.WaitingRoomStatus.WAITING, today);
-        // Feed the objects to the model
-        model.addAttribute("waitingPatients", waitingPatients);
-
-        return "waiting-room";
-    }
     // Controller to get patients by status
-    @GetMapping("/patients")
-    @ResponseBody
-    public List<Patient> getPatientsByStatus(@RequestParam("status") Patient.WaitingRoomStatus status) {
-        LocalDate today = LocalDate.now();
-        return patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(status, today);
-    }
+    @GetMapping("/status")
+    public String showWaitingRoom(@RequestParam(value = "status", required = false) String status, Model model) {
+        // Default to WAITING if no status is provided
+        String selectedStatus = (status != null) ? status : "WAITING";
 
+        // Fetch patients based on the selected status
+        // add condition of date of today
+        List<Patient> patients = patientService.getPatientsByStatus(selectedStatus);
+
+        // Add data to the model
+        model.addAttribute("patients", patients);
+        model.addAttribute("selectedStatus", selectedStatus);
+
+        return "waiting-room"; // Name of the Thymeleaf template
+    }
     // Adding a patient to the waiting room functionality
     @Autowired
     private WaitingRoomService patientService;
@@ -70,6 +66,12 @@ public class WaitingRoomController {
     @PostMapping("/add-old-patient-to-waiting-room")
     public String addOldPatientToWaitingRoom(@RequestParam("patientId") Integer patientId){
         patientService.addOldPatientToWaitingRoom(patientId);
-        return "redirect:/waiting-room";
+        return "redirect:/waiting-room/status?status=WAITING";
+    }
+    // Cancelling patient in waiting room
+    @PostMapping("/cancel/{id}")
+    public String cancelPatient(@PathVariable("id") Integer id){
+        patientService.cancelWaitingRoom(id);
+        return "redirect:/waiting-room/status?status=WAITING";
     }
 }

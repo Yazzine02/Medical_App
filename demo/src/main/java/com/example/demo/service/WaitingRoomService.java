@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,4 +51,18 @@ public class WaitingRoomService {
         patient.setWaitingRoomDate(LocalDate.now());
         patientRepository.save(patient);
     }
+
+    public void cancelWaitingRoom(Integer patientID) {
+        Patient patient = patientRepository.findById(patientID)
+                .orElseThrow(() -> new IllegalArgumentException("Patient not found"));
+        patient.setWaitingRoomStatus(Patient.WaitingRoomStatus.CANCELLED);
+        patient.setWaitingRoomDate(LocalDate.now());
+        patientRepository.save(patient);
+    }
+
+    public List<Patient> getPatientsByStatus(String status) {
+        Patient.WaitingRoomStatus waitingRoomStatus = Patient.WaitingRoomStatus.valueOf(status.toUpperCase());
+        return patientRepository.findByWaitingRoomStatus(waitingRoomStatus);
+    }
+
 }
