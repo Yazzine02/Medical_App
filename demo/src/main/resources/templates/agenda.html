@@ -19,7 +19,7 @@
           <span class="collapsed-icon">M</span>
         </div>
         <ul class="list-unstyled components">
-          <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+          <li><a href="/waiting-room/status"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
           <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
           <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
           <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
@@ -32,6 +32,10 @@
         <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
         <h1 class="mt-4">Weekly Agenda</h1>
         <!-- Display each day of the week -->
+        <div class="navigating-buttons">
+          <a th:href="@{/agenda(date=${currentDate.minusWeeks(1)})}" class="btn btn-secondary">Previous Week</a>
+          <a th:href="@{/agenda(date=${currentDate.plusWeeks(1)})}" class="btn btn-secondary">Next Week</a>
+        </div>
         <div class="agenda">
           <table class="table table-hover mt-7">
             <thead>
@@ -41,21 +45,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td th:each="day : ${weekDays}">
-                  <ul th:if="${appointmentsGroupedByDay.containsKey(day)}">
-                    <!-- Loop through appointments for the day -->
-                    <li th:each="appointment : ${appointmentsGroupedByDay.get(day)}"
-                        th:class="${appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now()) ? 'past-appointment' :
-               (appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now().plusMinutes(30)) ? 'upcoming-appointment' : '')}">
-                      <span th:text="${appointment.appointmentDateTime}"></span>
-                      <span th:text="${appointment.description}"></span>
-                      (Patient: <span th:text="${appointment.patient.cin}"></span>)
-                    </li>
-                  </ul>
-                  <p th:if="${!appointmentsGroupedByDay.containsKey(day)}" class="past-appointment">No Appointments</p>
-                </td>
-              </tr>
+            <tr>
+              <td th:each="day : ${weekDays}">
+                <!-- Check if the day has appointments -->
+                <div th:if="${appointmentsGroupedByDay.containsKey(day)}" class="list-group">
+                  <div th:each="appointment : ${appointmentsGroupedByDay.get(day)}"
+                       th:classappend="${appointment.appointmentDateTime.toLocalDate().isEqual(T(java.time.LocalDate).now()) ? 'ongoing-appointment' :
+                     (appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now()) ? 'past-appointment' :
+                     (appointment.appointmentDateTime.isBefore(T(java.time.LocalDateTime).now().plusDays(3)) ? 'upcoming-appointment' : ''))}
+                     + ' appointment-details'">
+                    <h5 th:text="${appointment.appointmentDateTime.toLocalTime()}" class="mb-1"></h5>
+                    <p th:text="${appointment.description}" class="mb-1"></p>
+                    <p th:text="${appointment.patient.cin}" class="mb-1"></p>
+                  </div>
+                </div>
+                <!-- Display 'No Appointments' if the day has no appointments -->
+                <p th:if="${!appointmentsGroupedByDay.containsKey(day)}" class="past-appointment">No Appointments</p>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>

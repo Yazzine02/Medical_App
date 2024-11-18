@@ -19,7 +19,7 @@
           <span class="collapsed-icon">M</span>
         </div>
         <ul class="list-unstyled components">
-          <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+          <li><a href="/waiting-room/status"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
           <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
           <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
           <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
@@ -35,7 +35,7 @@
 
           <h1 class="mt-4">Add Patient</h1>
           <div class="container">
-            <form action="/add-patient" method="POST">
+            <form action="/add-patient" method="POST" onsubmit="return validateCIN()">
               <div class="mb-3">
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="firstName" required>
@@ -53,7 +53,8 @@
 
               <div class="mb-3">
                 <label for="cin">CIN:</label>
-                <input type="text" id="cin" name="cin" required>
+                <input type="text" id="cin" name="cin" maxlength="7" required>
+                <span id="error-message" style="color: red; display: none;">CIN must be exactly 7 letters or numbers</span>
               </div>
 
               <div class="mb-2">

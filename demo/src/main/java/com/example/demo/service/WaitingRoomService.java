@@ -61,8 +61,9 @@ public class WaitingRoomService {
     }
 
     public List<Patient> getPatientsByStatus(String status) {
+        LocalDate today = LocalDate.now();
         Patient.WaitingRoomStatus waitingRoomStatus = Patient.WaitingRoomStatus.valueOf(status.toUpperCase());
-        return patientRepository.findByWaitingRoomStatus(waitingRoomStatus);
+        return patientRepository.findByWaitingRoomStatusAndWaitingRoomDate(waitingRoomStatus, today);
     }
 
 }

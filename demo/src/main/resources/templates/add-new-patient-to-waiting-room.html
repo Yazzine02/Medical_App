@@ -5,10 +5,8 @@
     <title>Add New Patient To Waiting Room</title>
     <!-- Link to CSS -->
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-
     <!-- Link to Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -22,7 +20,7 @@
         <span class="collapsed-icon">M</span>
       </div>
       <ul class="list-unstyled components">
-        <li><a href="/waiting-room"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+        <li><a href="/waiting-room/status"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
         <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
         <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
         <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
@@ -36,9 +34,9 @@
 
       <div class="container">
 
-        <h1 class="mt-4">Add patient to waiting room</h1>
+        <h1 class="mt-4">Add Patient to Waiting Room</h1>
         <div class="container">
-          <form action="/waiting-room/add-new-patient-to-waiting-room" method="POST">
+          <form action="/waiting-room/add-new-patient-to-waiting-room" method="POST" onsubmit="return validateCIN()">
 
             <div class="mb-3">
               <label for="firstName">First Name:</label>
@@ -57,7 +55,8 @@
 
             <div class="mb-3">
               <label for="cin">CIN:</label>
-              <input type="text" id="cin" name="cin" required>
+              <input type="text" id="cin" name="cin" maxlength="7" required>
+              <span id="error-message" style="color: red; display: none;">CIN must be exactly 7 letters or numbers</span>
             </div>
 
             <div class="mb-2">

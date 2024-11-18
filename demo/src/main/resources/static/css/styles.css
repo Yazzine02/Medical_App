@@ -102,12 +102,23 @@
     display: none;
 }
 
-.past-appointment {
-    color: gray;
+.appointment-details {
+    display: block; /* Ensures elements stack vertically */
+    margin-bottom: 1rem; /* Adds spacing between different appointments */
 }
-.ongoing-appointment {
-    background-color: yellow;
+
+.appointment-details h5,
+.appointment-details p {
+    margin: 0; /* Removes any default margin for tighter control over spacing */
+    padding: 0.5rem 0; /* Optional: Adds padding for better spacing between elements */
 }
-.upcoming-appointment {
-    border: 2px solid red;
+
+.past-appointment{
+    color : gray;
+}
+.ongoing-appointment{
+    color : green;
+}
+.upcoming-appointment{
+    color : red;
 }
