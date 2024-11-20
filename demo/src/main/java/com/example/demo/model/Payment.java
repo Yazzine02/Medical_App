@@ -11,8 +11,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "total", nullable = false)
-    private double total;
     @Column(name = "amount_paid", nullable = false)
     private double amountPaid;
     @Column(name = "payment_date", nullable = false)
@@ -23,8 +21,8 @@ public class Payment {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "appointment_id", nullable = false)
-    private Appointment appointment;
+    @JoinColumn(name = "consultation_id", nullable = false)
+    private Consultation consultation;
 
     public int getId() {
         return id;
@@ -32,14 +30,6 @@ public class Payment {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
     }
 
     public Patient getPatient() {
@@ -64,13 +54,5 @@ public class Payment {
 
     public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
     }
 }

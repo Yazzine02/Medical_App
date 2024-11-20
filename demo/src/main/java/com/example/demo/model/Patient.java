@@ -39,6 +39,9 @@ public class Patient {
     @JsonManagedReference
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Consultation> consultations;
+
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Payment> payments;
 

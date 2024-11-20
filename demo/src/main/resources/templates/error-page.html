@@ -14,26 +14,12 @@
 <body>
     <div class="d-flex align-items-center justify-content-center vh-100">
         <div class="d-flex">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="bg-dark text-light">
-                <div class="sidebar-header">
-                    <h3>Medical App</h3>
-                    <span class="collapsed-icon">M</span>
-                </div>
-                <ul class="list-unstyled components">
-                    <li><a href="/waiting-room/status"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
-                    <li><a href="/patient-list"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
-                    <li><a href="/appointment-list"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
-                    <li><a href="/agenda"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
-                    <li><a href="/consultation-list"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
-                </ul>
-            </nav>
 
             <div class="text-center">
                 <h1 class="display-1 fw-bold">Error</h1>
                 <p class="fs-3"> <span class="text-danger">Oops!</span></p>
                 <p class="lead" th:text="${errorMessage}"></p>
-                <a href="/waiting-room" class="btn btn-primary">Back to Waiting Room</a>
+                <a href="/waiting-room/status" class="btn btn-primary">Back to Waiting Room</a>
             </div>
         </div>
     </div>

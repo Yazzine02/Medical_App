@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <!-- Sidebar -->
+        <nav id="sidebar" class="bg-dark text-light">
+            <div class="sidebar-header">
+                <h3>Medical App</h3>
+                <span class="collapsed-icon">M</span>
+            </div>
+            <ul class="list-unstyled components">
+                <li><a th:href="@{/waiting-room/status}"><i class="fas fa-clinic-medical"></i> <span>Waiting Room</span></a></li>
+                <li><a th:href="@{/patient-list}"><i class="fas fa-user-injured"></i> <span>Patients</span></a></li>
+                <li><a th:href="@{/appointment-list}"><i class="fas fa-calendar-check"></i> <span>Appointments</span></a></li>
+                <li><a th:href="@{/agenda}"><i class="fas fa-calendar-alt"></i> <span>Agenda</span></a></li>
+                <li><a th:href="@{/consultation}"><i class="fas fa-notes-medical"></i> <span>Consultations</span></a></li>
+            </ul>
+        </nav>
+    </body>
+</html>

@@ -20,13 +20,9 @@ public class Appointment {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     @JsonBackReference
     private Patient patient;
-
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL)
-    private List<Payment> payments;
-
 
     public Integer getId() {
         return id;
@@ -34,14 +30,6 @@ public class Appointment {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
     }
 
     public Patient getPatient() {

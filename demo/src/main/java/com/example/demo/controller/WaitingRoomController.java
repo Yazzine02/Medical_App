@@ -49,7 +49,7 @@ public class WaitingRoomController {
         try{
             patientService.addPatientToWaitingRoom(patientDTO);
             redirectAttributes.addFlashAttribute("message", "Patient added to waiting room");
-            return "redirect:/waiting-room";
+            return "redirect:/waiting-room/status";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Failed to add patient to waiting room, " + e.getMessage());
             return "redirect:/add-new-patient-to-waiting-room";
