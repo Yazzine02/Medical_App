@@ -27,23 +27,23 @@
         <form action="/payment/add" method="POST" onsubmit="">
 
           <div class="mb-3">
-            <label for="firstName">Patient ID:</label>
-            <input type="text" id="firstName" name="firstName" required>
+            <label for="patientID">Patient ID:</label>
+            <input type="number" id="patientID" name="patientID" min=0 required>
           </div>
 
           <div class="mb-3">
-            <label for="lastName">Consultation ID:</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <label for="consultationId">Consultation ID:</label>
+            <input type="number" id="consultationId" name="consultationId"  min=0 required>
           </div>
 
           <div class="mb-3">
-            <label for="birthDate">Amount:</label>
-            <input type="date" id="birthDate" name="birthDate" required>
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" min=0 required>
           </div>
 
           <div class="mb-2">
             <button type="submit" class="btn btn-success" onclick="">Submit</button>
-            <button type="submit" class="btn btn-danger" onclick="window.location.href='/consultation'">Cancel</button>
+            <button type="submit" class="btn btn-danger" onclick="window.location.href='/payment'">Cancel</button>
           </div>
 
         </form>

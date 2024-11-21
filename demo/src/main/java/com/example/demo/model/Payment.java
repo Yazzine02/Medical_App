@@ -11,8 +11,8 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "amount_paid", nullable = false)
-    private double amountPaid;
+    @Column(name = "amount", nullable = false)
+    private double amount;
     @Column(name = "payment_date", nullable = false)
     private LocalDate paymentDate;
 
@@ -32,6 +32,14 @@ public class Payment {
         this.id = id;
     }
 
+    public Consultation getConsultation() {
+        return consultation;
+    }
+
+    public void setConsultation(Consultation consultation) {
+        this.consultation = consultation;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -48,11 +56,11 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public double getAmountPaid() {
-        return amountPaid;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmountPaid(double amountPaid) {
-        this.amountPaid = amountPaid;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }
