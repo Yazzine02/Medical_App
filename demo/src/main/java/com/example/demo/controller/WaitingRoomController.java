@@ -28,8 +28,9 @@ public class WaitingRoomController {
         // Fetch patients based on the selected status
         // add condition of date of today
         List<Patient> patients = patientService.getPatientsByStatus(selectedStatus);
-
+        int numberOfPatients = patients.size();
         // Add data to the model
+        model.addAttribute("numberOfPatients", numberOfPatients);
         model.addAttribute("patients", patients);
         model.addAttribute("selectedStatus", selectedStatus);
 

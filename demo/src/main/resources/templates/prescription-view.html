@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Prescription View</title>
+      <!-- Link to CSS -->
+      <link rel="stylesheet" th:href="@{/css/styles.css}">
+      <!-- Link to Bootstrap -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <!-- Font Awesome for Icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    <div class="d-flex">
+      <div th:replace="fragments/sidebar :: #sidebar"></div>
+      <!-- Page Content -->
+      <div id="content" class="p-4">
+        <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+        <div class="container">
+          <h1 class="mt-4">View Prescription</h1>
+
+          <div th:if="${prescription}">
+            <p><strong>Prescription ID:</strong> <span th:text="${prescription.id}"></span></p>
+            <p><strong>Patient Name:</strong> <span th:text="${prescription.patient.firstName + ' ' + prescription.patient.lastName}"></span></p>
+            <p><strong>Consultation ID:</strong> <span th:text="${prescription.consultation.id}"></span></p>
+            <p><strong>Date:</strong> <span th:text="${prescription.date}"></span></p>
+            <p><strong>Medications and Instructions:</strong></p>
+            <ul>
+              <li th:each="line : ${#strings.arraySplit(prescription.prescriptionText, '\n')}" th:text="${line}"></li>
+            </ul>
+          </div>
+
+          <div class="mt-3">
+            <a th:href="@{/prescription}" class="btn btn-success">Back to List</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script th:src="@{/js/scripts.js}"></script>
+  </body>
+</html>

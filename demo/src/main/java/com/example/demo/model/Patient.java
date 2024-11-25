@@ -42,6 +42,9 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Prescription> prescriptions;
+
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Payment> payments;
 
@@ -53,12 +56,60 @@ public class Patient {
         this.id = id;
     }
 
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public double getCredit() {
+        return credit;
+    }
+
+    public void setCredit(double credit) {
+        this.credit = credit;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
+    }
+
     public List<Payment> getPayments() {
         return payments;
     }
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
     }
 
     public List<Appointment> getAppointments() {
@@ -77,12 +128,12 @@ public class Patient {
         this.waitingRoomStatus = waitingRoomStatus;
     }
 
-    public double getCredit() {
-        return credit;
+    public LocalDate getWaitingRoomDate() {
+        return waitingRoomDate;
     }
 
-    public void setCredit(double credit) {
-        this.credit = credit;
+    public void setWaitingRoomDate(LocalDate waitingRoomDate) {
+        this.waitingRoomDate = waitingRoomDate;
     }
 
     public LocalDate getBirthDate() {
@@ -91,37 +142,5 @@ public class Patient {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getCin() {
-        return cin;
-    }
-
-    public void setCin(String cin) {
-        this.cin = cin;
-    }
-
-    public LocalDate getWaitingRoomDate() {
-        return waitingRoomDate;
-    }
-
-    public void setWaitingRoomDate(LocalDate waitingRoomDate) {
-        this.waitingRoomDate = waitingRoomDate;
     }
 }

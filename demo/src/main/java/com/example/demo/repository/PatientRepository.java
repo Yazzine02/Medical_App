@@ -16,5 +16,5 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     Optional<Patient> findById(Integer id);
 
-    List<Patient> findByWaitingRoomStatus(Patient.WaitingRoomStatus waitingRoomStatus);
+    List<Patient> findByWaitingRoomStatusAndWaitingRoomDateOrderByWaitingRoomDateAsc(Patient.WaitingRoomStatus waitingRoomStatus, LocalDate today);
 }

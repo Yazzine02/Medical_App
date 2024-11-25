@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "prescription")
 public class Prescription {
@@ -9,12 +11,17 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "prescription_file_path")
-    private String prescriptionFilePath;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
+    @Column(name = "prescription_text")
+    private String prescriptionText;
 
     @ManyToOne
     @JoinColumn(name = "consultation_id", nullable = false)
     private Consultation consultation;
+    @ManyToOne
+    @JoinColumn(name="patient_id", nullable = false)
+    private Patient patient;
 
     public Integer getId() {
         return id;
@@ -32,11 +39,27 @@ public class Prescription {
         this.consultation = consultation;
     }
 
-    public String getPrescriptionFilePath() {
-        return prescriptionFilePath;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setPrescriptionFilePath(String prescriptionFilePath) {
-        this.prescriptionFilePath = prescriptionFilePath;
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getPrescriptionText() {
+        return prescriptionText;
+    }
+
+    public void setPrescriptionText(String prescriptionText) {
+        this.prescriptionText = prescriptionText;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

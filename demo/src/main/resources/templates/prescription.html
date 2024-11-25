@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Prescription List</title>
+        <!-- Link to CSS -->
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <!-- Link to Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Font Awesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <div class="d-flex">
+            <div th:replace="fragments/sidebar :: #sidebar"></div>
+            <!-- Page Content -->
+            <div id="content" class="p-4">
+                <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+                <div class="container">
+                    <h1 class="mt-4">Patients in the Waiting Room</h1>
+
+                    <div class="btn-group mt-2">
+                        <a class="btn btn-success" href="/prescription/add">Add New Prescription</a>
+                    </div>
+
+                    <table class="table table-hover mt-6">
+                        <thead>
+                            <tr>
+                                <th scope="col">Prescription ID</th>
+                                <th scope="col">Patient First Name</th>
+                                <th scope="col">Patient Last Name</th>
+                                <th scope="col">Consultation ID</th>
+                                <th scope="col">Patient ID</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTableBody">
+                            <!-- Patient rows will be dynamically generated here -->
+                            <tr th:each="prescription : ${prescriptions}">
+                                <td th:text="${prescription.id}"></td>
+                                <td th:text="${prescription.consultation.patient.firstName}"></td>
+                                <td th:text="${prescription.consultation.patient.lastName}"></td>
+                                <td th:text="${prescription.consultation.id}"></td>
+                                <td th:text="${prescription.consultation.patient.id}"></td>
+                                <td th:text="${prescription.date}"></td>
+                                <td>
+                                    <a th:href="@{/prescription/view/{id}(id=${prescription.id})}" class="btn btn-info">View</a>
+                                    <form th:action="@{/prescription/delete/{id}(id=${prescription.id})}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this patient?');">
+                                        <button type="submit" class="btn btn-danger">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <script th:src="@{/js/scripts.js}"></script>
+    </body>
+</html>

@@ -12,15 +12,15 @@ VALUES
 
 INSERT INTO appointment (id, patient_id, appointment_date_time, description)
 VALUES
-    (1, 1, '2024-11-15 09:00:00', 'General consultation'),
-    (2, 2, '2024-11-16 10:30:00', 'Routine check-up'),
-    (3, 3, '2024-11-17 14:00:00', 'Follow-up visit'),
-    (4, 4, '2024-11-18 11:00:00', 'Specialist consultation'),
-    (5, 5, '2024-11-19 15:30:00', 'Physical therapy'),
-    (6, 6, '2024-11-20 08:30:00', 'General consultation'),
-    (7, 7, '2024-11-21 12:45:00', 'Routine check-up'),
-    (8, 8, '2024-11-22 10:15:00', 'Follow-up visit'),
-    (9, 9, '2024-11-23 16:00:00', 'Emergency visit');
+    (1, 1, '2024-11-25 09:00:00', 'General consultation'),
+    (2, 2, '2024-11-26 10:30:00', 'Routine check-up'),
+    (3, 3, '2024-11-27 14:00:00', 'Follow-up visit'),
+    (4, 4, '2024-11-28 11:00:00', 'Specialist consultation'),
+    (5, 5, '2024-11-29 15:30:00', 'Physical therapy'),
+    (6, 6, '2024-11-30 08:30:00', 'General consultation'),
+    (7, 7, '2024-11-31 12:45:00', 'Routine check-up'),
+    (8, 8, '2024-11-32 10:15:00', 'Follow-up visit'),
+    (9, 9, '2024-11-33 16:00:00', 'Emergency visit');
 
 CREATE TABLE patient (
     ->     id INT AUTO_INCREMENT PRIMARY KEY,
