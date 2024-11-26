@@ -35,6 +35,19 @@ This application is designed to help medical offices manage daily operations, in
 - **Dashboard**: A collapsible sidebar with quick links to different application sections.
 
 ---
+## Screenshots
+
+[waiting-room.png]
+[patients.png]
+[view-patient.png]
+[appointments.png]
+[add-appointment.png]
+[agenda.png]
+[consultations.png]
+[payments.png]
+[prescriptions.png]
+
+---
 
 ## Installation
 
