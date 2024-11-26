@@ -37,15 +37,15 @@ This application is designed to help medical offices manage daily operations, in
 ---
 ## Screenshots
 
-[waiting-room.png]
-[patients.png]
-[view-patient.png]
-[appointments.png]
-[add-appointment.png]
-[agenda.png]
-[consultations.png]
-[payments.png]
-[prescriptions.png]
+(waiting-room.png)
+(patients.png)
+(view-patient.png)
+(appointments.png)
+(add-appointment.png)
+(agenda.png)
+(consultations.png)
+(payments.png)
+(prescriptions.png)
 
 ---
 
