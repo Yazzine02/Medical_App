@@ -37,15 +37,32 @@ This application is designed to help medical offices manage daily operations, in
 ---
 ## Screenshots
 
-(waiting-room.png)
-(patients.png)
-(view-patient.png)
-(appointments.png)
-(add-appointment.png)
-(agenda.png)
-(consultations.png)
-(payments.png)
-(prescriptions.png)
+### 1. Waiting Room
+![Waiting Room](screenshots/waiting-room.png)
+
+### 2. Patients List
+![Patients List](screenshots/patients.png)
+
+### 3. View Patient Details
+![View Patient Details](screenshots/view-patient.png)
+
+### 4. Appointments List
+![Appointments List](screenshots/appointments.png)
+
+### 5. Add New Appointment
+![Add Appointment](screenshots/add-appointment.png)
+
+### 6. Weekly Agenda
+![Weekly Agenda](screenshots/agenda.png)
+
+### 7. Consultations
+![Consultations](screenshots/consultations.png)
+
+### 8. Payments
+![Payments](screenshots/payments.png)
+
+### 9. Prescriptions
+![Prescriptions](screenshots/prescriptions.png)
 
 ---
 
