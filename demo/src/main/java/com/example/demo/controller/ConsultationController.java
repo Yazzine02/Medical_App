@@ -26,6 +26,11 @@ public class ConsultationController {
         model.addAttribute("consultations", consultations);
         return "consultation";
     }
+    @GetMapping("add/{id}")
+    public String showAddConsultationFormForPatient(@PathVariable("id") int id, Model model) {
+        model.addAttribute("patientId", id);
+        return "add-consultation-waitingroom";
+    }
     @GetMapping("/add")
     public String showAddConsultationFrom(Model model) {
         return "add-consultation";

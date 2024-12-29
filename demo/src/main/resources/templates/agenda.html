@@ -54,9 +54,9 @@
                       <button type="submit" class="btn btn-success">Select</button>
                     </form>
                     <!-- Modify Button (Edit description + date) -->
-                    <a th:href="@{/appointment-modify/{id}(id=${appointment.id})}" class="btn btn-info">Modify</a>
+                    <a th:href="@{/appointment-modify/{id}(id=${appointment.id})}" class="btn btn-info">Edit</a>
                     <!-- Delete Button (Delete with Confirmation) -->
-                    <a th:href="@{/appointment-delete/{id}(id=${appointment.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this appointment?');">Delete</a>
+                    <a th:href="@{/appointment-delete/{id}(id=${appointment.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this appointment?');">Cancel</a>
                   </div>
                 </div>
                 <!-- Display 'No Appointments' if the day has no appointments -->

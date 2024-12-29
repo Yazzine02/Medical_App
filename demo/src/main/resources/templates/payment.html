@@ -29,7 +29,6 @@
                     <table class="table table-hover mt-6">
                         <thead>
                         <tr>
-                            <th scope="col">Payment ID</th>
                             <th scope="col">amount</th>
                             <th scope="col">Patient ID</th>
                             <th scope="col">Consultation ID</th>
@@ -41,7 +40,6 @@
                         <!-- Appointment rows will be dynamically generated here -->
                         <!--                    Thymeleaf uses == as equality. You have to use .equals for boolean-->
                         <tr th:each="payment : ${payments}">
-                            <td th:text="${payment.id}"></td>
                             <td th:text="${payment.amount}"></td>
                             <td th:text="${payment.patient.id}"></td>
                             <td th:text="${payment.consultation.id}"></td>
@@ -50,9 +48,9 @@
                             <!--IMPLEMENT CRUD-->
                             <td>
                                 <div class="mb-3">
-                                    <a th:href="@{/payment/modify/{id}(id=${payment.id})}" class="btn btn-info">Modify</a>
+                                    <a th:href="@{/payment/modify/{id}(id=${payment.id})}" class="btn btn-info">Edit</a>
                                     <form method="post" th:action="@{/payment/delete/{id}(id=${payment.id})}" onsubmit="return confirm('Are you sure you want to delete this consultation ?')">
-                                        <button class="btn btn-danger">Delete</button>
+                                        <button class="btn btn-danger">Cancel</button>
                                     </form>
                                 </div>
                             </td>

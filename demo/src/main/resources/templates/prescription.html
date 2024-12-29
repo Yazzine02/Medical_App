@@ -18,7 +18,7 @@
                 <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
 
                 <div class="container">
-                    <h1 class="mt-4">Patients in the Waiting Room</h1>
+                    <h1 class="mt-4">Prescriptions</h1>
 
                     <div class="btn-group mt-2">
                         <a class="btn btn-success" href="/prescription/add">Add New Prescription</a>
@@ -27,7 +27,6 @@
                     <table class="table table-hover mt-6">
                         <thead>
                             <tr>
-                                <th scope="col">Prescription ID</th>
                                 <th scope="col">Patient First Name</th>
                                 <th scope="col">Patient Last Name</th>
                                 <th scope="col">Consultation ID</th>
@@ -38,7 +37,6 @@
                         <tbody id="patientTableBody">
                             <!-- Patient rows will be dynamically generated here -->
                             <tr th:each="prescription : ${prescriptions}">
-                                <td th:text="${prescription.id}"></td>
                                 <td th:text="${prescription.consultation.patient.firstName}"></td>
                                 <td th:text="${prescription.consultation.patient.lastName}"></td>
                                 <td th:text="${prescription.consultation.id}"></td>
@@ -46,6 +44,8 @@
                                 <td th:text="${prescription.date}"></td>
                                 <td>
                                     <a th:href="@{/prescription/view/{id}(id=${prescription.id})}" class="btn btn-info">View</a>
+                                    <a th:href="@{/prescription/modify/{id}(id=${prescription.id})}" class="btn btn-primary">Edit</a>
+                                    <a th:href="@{/prescription/download/{id}(id=${prescription.id})}" class="btn btn-success">Download</a>
                                     <form th:action="@{/prescription/delete/{id}(id=${prescription.id})}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this patient?');">
                                         <button type="submit" class="btn btn-danger">Cancel</button>
                                     </form>

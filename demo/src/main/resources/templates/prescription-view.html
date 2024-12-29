@@ -1,44 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <title>Prescription View</title>
-      <!-- Link to CSS -->
-      <link rel="stylesheet" th:href="@{/css/styles.css}">
-      <!-- Link to Bootstrap -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <!-- Font Awesome for Icons -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  </head>
-  <body>
-    <div class="d-flex">
-      <div th:replace="fragments/sidebar :: #sidebar"></div>
-      <!-- Page Content -->
-      <div id="content" class="p-4">
-        <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescription View</title>
+  <!-- Link to CSS -->
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <!-- Link to Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .card {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
 
-        <div class="container">
-          <h1 class="mt-4">View Prescription</h1>
+    .card-header {
+      background-color: #f8f9fa;
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-align: center;
+    }
 
+    .details p {
+      margin: 0.5rem 0;
+    }
+
+    .medications {
+      white-space: pre-wrap;
+      font-style: italic;
+    }
+
+    .btn-success {
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: #sidebar"></div>
+
+  <!-- Page Content -->
+  <div id="content" class="p-4">
+    <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          Prescription Details
+        </div>
+        <div class="card-body">
           <div th:if="${prescription}">
-            <p><strong>Prescription ID:</strong> <span th:text="${prescription.id}"></span></p>
-            <p><strong>Patient Name:</strong> <span th:text="${prescription.patient.firstName + ' ' + prescription.patient.lastName}"></span></p>
-            <p><strong>Consultation ID:</strong> <span th:text="${prescription.consultation.id}"></span></p>
-            <p><strong>Date:</strong> <span th:text="${prescription.date}"></span></p>
-            <p><strong>Medications and Instructions:</strong></p>
-            <ul>
-              <li th:each="line : ${#strings.arraySplit(prescription.prescriptionText, '\n')}" th:text="${line}"></li>
-            </ul>
-          </div>
+            <div class="details">
+              <p><strong>Patient Name:</strong> <span th:text="${prescription.patient.firstName + ' ' + prescription.patient.lastName}"></span></p>
+              <p><strong>Patient CIN:</strong> <span th:text="${prescription.patient.cin}"></span></p>
+              <p><strong>Date:</strong> <span th:text="${prescription.date}"></span></p>
+            </div>
 
-          <div class="mt-3">
-            <a th:href="@{/prescription}" class="btn btn-success">Back to List</a>
+            <hr>
+            <div>
+              <h5 class="mb-3">Medications and Instructions:</h5>
+              <p class="medications" th:text="${prescription.prescriptionText}"></p>
+            </div>
           </div>
-
+        </div>
+        <div class="card-footer text-right">
+          <a th:href="@{/prescription}" class="btn btn-success">
+            <i class="fas fa-list"></i> Back to List
+          </a>
+          <a th:href="@{/prescription/pdf/{id}(id=${prescription.id})}" class="btn btn-primary">
+            <i class="fas fa-download"></i> Download PDF
+          </a>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <script th:src="@{/js/scripts.js}"></script>
-  </body>
+<script th:src="@{/js/scripts.js}"></script>
+</body>
 </html>

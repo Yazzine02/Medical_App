@@ -20,7 +20,7 @@ public class AppointmentController {
     // Show appointment lis
     @GetMapping("/appointment-list")
     public String appointmentList(Model model) {
-        List<Appointment> appointments = appointmentRepository.findAll();
+        List<Appointment> appointments = appointmentRepository.findAllByOrderByAppointmentDateTimeDesc();
         model.addAttribute("appointments", appointments);
         return "appointment-list";
     }

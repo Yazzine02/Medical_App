@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Prescription</title>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Link to Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: #sidebar"></div>
+
+    <!-- Page Content -->
+    <div id="content" class="p-4">
+        <button id="sidebarToggle" class="btn btn-dark mb-4">Toggle Sidebar</button>
+
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    Prescription Modify Details
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/prescription/modify/{id}(id=${prescription.id})}" th:object="${prescription}" method="post">
+                        <div class="form-group">
+                            <label for="patientId">Patient ID:</label>
+                            <input type="text" class="form-control" id="patientId" name="patientId"  th:value="${prescription.patient.id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="consultationId">Consultation ID:</label>
+                            <input type="text" class="form-control" id="consultationId" name="consultationId" readonly th:value="${prescription.consultation.id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="prescriptionId">Prescription ID:</label>
+                            <input type="text" class="form-control" id="prescriptionId" name="id" readonly th:value="${prescription.id}">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" readonly th:value="${prescription.patient.firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" readonly th:value="${prescription.patient.lastName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="cin">Patient CIN:</label>
+                            <input type="text" class="form-control" id="cin" readonly th:value="${prescription.patient.cin}">
+                        </div>
+                        <div class="form-group">
+                            <label for="prescriptionDate">Date:</label>
+                            <input type="date" class="form-control" id="prescriptionDate" th:field="${prescription.date}">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="prescriptionText">Medications and Instructions:</label>
+                            <textarea id="prescriptionText" name="prescriptionText" rows="6" class="form-control"
+                                      th:text="${prescription.prescriptionText}"></textarea>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                            <a th:href="@{/prescription}" class="btn btn-danger">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="card-footer text-right">
+                    <a th:href="@{/prescription}" class="btn btn-success">
+                        <i class="fas fa-list"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/scripts.js}"></script>
+</body>
+</html>

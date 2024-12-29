@@ -30,7 +30,6 @@
                     <table class="table table-hover mt-6">
                         <thead>
                             <tr>
-                                <th scope="col">Appointment ID</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Patient ID</th>
@@ -40,7 +39,6 @@
                         <tbody id="patientTableBody">
                             <!-- Appointment rows will be dynamically generated here -->
                             <tr th:each="appointment : ${appointments}">
-                                <td th:text="${appointment.id}"></td>
                                 <td th:text="${appointment.appointmentDateTime}"></td>
                                 <td th:text="${appointment.description}"></td>
                                 <td th:text="${appointment.patient.id}"></td>
@@ -48,9 +46,9 @@
                                 <!--IMPLEMENT CRUD-->
                                 <td>
                                     <!-- Modify Button (Edit description + date) -->
-                                    <a th:href="@{/appointment-modify/{id}(id=${appointment.id})}" class="btn btn-info">Modify</a>
+                                    <a th:href="@{/appointment-modify/{id}(id=${appointment.id})}" class="btn btn-info">Edit</a>
                                     <!-- Delete Button (Delete with Confirmation) -->
-                                    <a th:href="@{/appointment-delete/{id}(id=${appointment.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this appointment?');">Delete</a>
+                                    <a th:href="@{/appointment-delete/{id}(id=${appointment.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this appointment?');">Cancel</a>
                                 </td>
                             </tr>
                         </tbody>

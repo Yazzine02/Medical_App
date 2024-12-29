@@ -39,7 +39,6 @@
                     <table class="table table-hover mt-6">
                         <thead>
                             <tr>
-                                <th scope="col">Patient ID</th>
                                 <th scope="col">CIN</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
@@ -51,7 +50,6 @@
                         <tbody id="patientTableBody">
                             <!-- Patient rows will be dynamically generated here -->
                             <tr th:each="patient : ${patients}">
-                                <td th:text="${patient.id}"></td>
                                 <td th:text="${patient.cin}"></td>
                                 <td th:text="${patient.firstName}"></td>
                                 <td th:text="${patient.lastName}"></td>
@@ -59,7 +57,7 @@
                                 <td th:text="${patient.credit}" th:class="${patient.credit>0 ? 'table-danger':''}"></td>
                                 <td th:text="${patient.waitingRoomStatus}"></td>
                                 <td>
-                                    <a th:href="@{/consultation/add}" class="btn btn-success">Select</a>
+                                    <a th:href="@{/consultation/add/{id}(id=${patient.id})}" class="btn btn-success">Select</a>
                                     <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-info">View</a>
                                     <form th:action="@{/waiting-room/cancel/{id}(id=${patient.id})}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to cancel this patient?');">
                                         <button type="submit" class="btn btn-danger">Cancel</button>

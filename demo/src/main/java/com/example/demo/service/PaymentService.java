@@ -21,6 +21,9 @@ public class PaymentService {
         this.consultationRepository = consultationRepository;
     }
 
+    public Payment getPayment(int id) {
+        return paymentRepository.findById(id).get();
+    }
     public void addPayment(int patientID, int consultationId, double amount) {
         if(patientRepository.findById(patientID).isPresent() && consultationRepository.findById(consultationId).isPresent()) {
             Payment payment = new Payment();
@@ -33,5 +36,18 @@ public class PaymentService {
         else{
             throw new IllegalArgumentException("Patient with id " + patientID + " does not exist OR Consultation with id " + consultationId + " does not exist.");
         }
+    }
+
+    public void deletePayment(int id) {
+        if(paymentRepository.findById(id).isPresent()) {
+            paymentRepository.deleteById(id);
+        }
+        else {
+            throw new IllegalArgumentException("Patient with id " + id + " does not exist.");
+        }
+    }
+
+    public void save(Payment payment) {
+        paymentRepository.save(payment);
     }
 }

@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
     List<Appointment> findAll();
+    List<Appointment> findAllByOrderByAppointmentDateTimeDesc();
     List<Appointment> findByPatientId(int patientId);
     Optional<Appointment> findByAppointmentDateTime(LocalDateTime appointmentDateTime);
 

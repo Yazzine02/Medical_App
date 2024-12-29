@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -27,7 +26,7 @@ public class WaitingRoomController {
 
         // Fetch patients based on the selected status
         // add condition of date of today
-        List<Patient> patients = patientService.getPatientsByStatus(selectedStatus);
+        List<Patient> patients = waitingRoomService.getPatientsByStatus(selectedStatus);
         int numberOfPatients = patients.size();
         // Add data to the model
         model.addAttribute("numberOfPatients", numberOfPatients);
@@ -38,7 +37,7 @@ public class WaitingRoomController {
     }
     // Adding a patient to the waiting room functionality
     @Autowired
-    private WaitingRoomService patientService;
+    private WaitingRoomService waitingRoomService;
     // Show the adding patient to waiting room form
     @GetMapping("/add-new-patient-to-waiting-room")
     public String showAddNewPatientForm() {
@@ -48,7 +47,7 @@ public class WaitingRoomController {
     @PostMapping("/add-new-patient-to-waiting-room")
     public String addPatientToWaitingRoom(@ModelAttribute PatientDTO patientDTO, RedirectAttributes redirectAttributes){
         try{
-            patientService.addPatientToWaitingRoom(patientDTO);
+            waitingRoomService.addPatientToWaitingRoom(patientDTO);
             redirectAttributes.addFlashAttribute("message", "Patient added to waiting room");
             return "redirect:/waiting-room/status";
         } catch (Exception e) {
@@ -66,13 +65,13 @@ public class WaitingRoomController {
     }
     @PostMapping("/add-old-patient-to-waiting-room")
     public String addOldPatientToWaitingRoom(@RequestParam("patientId") Integer patientId){
-        patientService.addOldPatientToWaitingRoom(patientId);
+        waitingRoomService.addOldPatientToWaitingRoom(patientId);
         return "redirect:/waiting-room/status?status=WAITING";
     }
     // Cancelling patient in waiting room
     @PostMapping("/cancel/{id}")
     public String cancelPatient(@PathVariable("id") Integer id){
-        patientService.cancelWaitingRoom(id);
+        waitingRoomService.cancelWaitingRoom(id);
         return "redirect:/waiting-room/status?status=WAITING";
     }
 }

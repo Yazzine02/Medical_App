@@ -23,6 +23,11 @@ public class PrescriptionService {
         this.prescriptionRepository = prescriptionRepository;
     }
 
+    public Prescription getPrescriptionById(int id) {
+        return prescriptionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Prescription not found with ID: " + id));
+    }
+
     public void addPrescription(int consultationId, int patientId, String prescriptionText) {
         if(patientRepository.findById(patientId).isPresent() && consultationRepository.findById(consultationId).isPresent()) {
             Prescription prescription = new Prescription();
@@ -44,6 +49,15 @@ public class PrescriptionService {
         }
         else{
             throw new IllegalArgumentException("Prescription ID "+id+" not found");
+        }
+    }
+
+    public void save(Prescription prescription) {
+        if(prescriptionRepository.findById(prescription.getId()).isPresent()) {
+            prescriptionRepository.save(prescription);
+        }
+        else{
+            throw new IllegalArgumentException("Prescription ID "+prescription.getId()+" not found");
         }
     }
 }

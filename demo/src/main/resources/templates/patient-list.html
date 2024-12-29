@@ -29,7 +29,6 @@
             <table class="table table-hover mt-7">
               <thead>
                 <tr>
-                  <th scope="col">Patient ID</th>
                   <th scope="col">CIN</th>
                   <th scope="col">First Name</th>
                   <th scope="col">Last Name</th>
@@ -41,7 +40,6 @@
               <tbody id="patientTableBody">
                 <!-- Patient rows will be dynamically generated here -->
                 <tr th:each="patient: ${patients}">
-                  <td th:text="${patient.id}"></td>
                   <td th:text="${patient.cin}"></td>
                   <td th:text="${patient.firstName}"></td>
                   <td th:text="${patient.lastName}"></td>
@@ -53,9 +51,9 @@
                     <!-- Select Button (View Profile) -->
                     <a th:href="@{/patient-profile/{id}(id=${patient.id})}" class="btn btn-primary">View</a>
                     <!-- Modify Button (Edit Profile) -->
-                    <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Modify</a>
+                    <a th:href="@{/patient-modify/{id}(id=${patient.id})}" class="btn btn-info">Edit</a>
                     <!-- Delete Button (Delete with Confirmation) -->
-                    <a th:href="@{/patient-delete/{id}(id=${patient.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this patient?')">Delete</a>
+                    <a th:href="@{/patient-delete/{id}(id=${patient.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this patient?')">Cancel</a>
                   </td>
                 </tr>
               </tbody>

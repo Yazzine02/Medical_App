@@ -1,55 +1,33 @@
-INSERT INTO patient (id, cin, first_name, last_name, birth_date, credit, waiting_room_status, waiting_room_date)
-VALUES
-    (1, 'AB12345', 'John', 'Doe', '1990-06-15', 100.00, 'WAITING', CURDATE()),
-    (2, 'CD67890', 'Jane', 'Smith', '1985-12-01', 200.50, 'COMPLETED', CURDATE()),
-    (3, 'EF23456', 'Alice', 'Johnson', '1992-03-27', 300.00, 'CANCELLED', CURDATE()),
-    (4, 'GH34567', 'Bob', 'Brown', '1978-04-13', 150.75, 'WAITING', CURDATE()),
-    (5, 'IJ45678', 'Sara', 'Davis', '2000-11-09', 250.00, 'NOT_IN_WAITING_ROOM', CURDATE()),
-    (6, 'KL56789', 'Tom', 'Wilson', '1995-02-20', 120.00, 'WAITING', CURDATE()),
-    (7, 'MN67890', 'Emma', 'White', '1988-08-16', 175.50, 'COMPLETED', CURDATE()),
-    (8, 'OP78901', 'Liam', 'Black', '1983-10-30', 225.00, 'WAITING', CURDATE()),
-    (9, 'QR89012', 'Olivia', 'Green', '1999-07-25', 90.00, 'CANCELLED', CURDATE());
+INSERT INTO patient (id, cin, first_name, last_name, birth_date, credit, waiting_room_date, waiting_room_status) VALUES
+(1, 'A123456', 'John', 'Doe', '1990-05-14', 200.0, '2024-11-26', 'WAITING'),
+(2, 'B654321', 'Jane', 'Smith', '1985-07-20', 50.0, '2024-11-26', 'COMPLETED'),
+(3, 'C789123', 'Alice', 'Brown', '1993-03-10', 120.0, '2024-11-26', 'CANCELLED'),
+(4, 'D456789', 'Bob', 'Johnson', '1988-09-12', 0.0, '2024-11-26', 'WAITING'),
+(5, 'E147258', 'Emma', 'Williams', '1995-01-25', 300.0, NULL, 'NOT_IN_WAITING_ROOM'),
+(6, 'F369852', 'Liam', 'Davis', '1992-02-18', 400.0, '2024-11-26', 'COMPLETED'),
+(7, 'G741852', 'Olivia', 'Miller', '1997-12-06', 250.0, '2024-11-26', 'WAITING'),
+(8, 'H963852', 'Noah', 'Wilson', '1991-08-23', 0.0, '2024-11-26', 'CANCELLED'),
+(9, 'I123789', 'Sophia', 'Anderson', '1996-11-15', 100.0, NULL, 'NOT_IN_WAITING_ROOM');
 
-INSERT INTO appointment (id, patient_id, appointment_date_time, description)
-VALUES
-    (1, 1, '2024-11-25 09:00:00', 'General consultation'),
-    (2, 2, '2024-11-26 10:30:00', 'Routine check-up'),
-    (3, 3, '2024-11-27 14:00:00', 'Follow-up visit'),
-    (4, 4, '2024-11-28 11:00:00', 'Specialist consultation'),
-    (5, 5, '2024-11-29 15:30:00', 'Physical therapy'),
-    (6, 6, '2024-11-30 08:30:00', 'General consultation'),
-    (7, 7, '2024-11-31 12:45:00', 'Routine check-up'),
-    (8, 8, '2024-11-32 10:15:00', 'Follow-up visit'),
-    (9, 9, '2024-11-33 16:00:00', 'Emergency visit');
+INSERT INTO appointment (id, appointment_date_time, description, patient_id) VALUES
+(1, '2024-11-26 10:00:00', 'Routine Checkup', 1),
+(2, '2024-11-26 11:30:00', 'Dental Cleaning', 2),
+(3, '2024-11-26 09:00:00', 'Vision Test', 3),
+(4, '2024-11-26 14:00:00', 'Annual Checkup', 4),
+(5, '2024-11-27 08:00:00', 'Follow-up Visit', 5),
+(6, '2024-11-26 10:30:00', 'Vaccination', 6),
+(7, '2024-11-26 15:00:00', 'Consultation', 7),
+(8, '2024-11-26 16:00:00', 'Orthopedic Checkup', 8),
+(9, '2024-11-28 12:00:00', 'ENT Consultation', 9);
 
-CREATE TABLE patient (
-    ->     id INT AUTO_INCREMENT PRIMARY KEY,
-    ->     first_name VARCHAR(50) NOT NULL,
-    ->     last_name VARCHAR(50) NOT NULL,
-    ->     birth_date DATE,
-    ->     credit DOUBLE,
-    ->     cin VARCHAR(7) UNIQUE NOT NULL,
-    ->     waiting_room_date DATETIME,
-    ->     waiting_room_status ENUM('WAITING', 'COMPLETED', 'CANCELLED', 'NOT_IN_WAITING_ROOM')
-    -> );
+INSERT INTO consultation (id, consultation_date, price, left_to_pay, total_paid, status, patient_id) VALUES
+(1, '2024-11-26 12:00:00', 150.0, 50.0, 100.0, 'NOT_PAID', 2),
+(2, '2024-11-26 11:00:00', 90.0, 0.0, 90.0, 'PAID', 6);
 
-CREATE TABLE appointment (
-    ->         id INT AUTO_INCREMENT PRIMARY KEY,
-    ->         appointment_date_time DATETIME UNIQUE NOT NULL,
-    ->         description VARCHAR(255),
-    ->         patient_id INT,
-    ->         FOREIGN KEY (patient_id) REFERENCES patient(id)
-    ->         );
+INSERT INTO payment (id, amount, payment_date, patient_id, consultation_id) VALUES
+(1, 100.0, '2024-11-26', 2, 1),
+(2, 90.0, '2024-11-26', 6, 2);
 
-CREATE TABLE payment (
-    ->     id INT AUTO_INCREMENT PRIMARY KEY,
-    ->     total DOUBLE NOT NULL,
-    ->     amount_paid DOUBLE NOT NULL,
-    ->     payment_date DATETIME NOT NULL,
-    ->     appointment_id INT,
-    ->     patient_id INT,  -- Foreign key for Patient
-    ->     FOREIGN KEY (appointment_id) REFERENCES appointment(id) ON DELETE CASCADE,
-    ->     FOREIGN KEY (patient_id) REFERENCES patient(id) ON DELETE CASCADE
-    -> );
-
-create table consultation(id int auto_increment primary key);
+INSERT INTO prescription (id, date, prescription_text, consultation_id, patient_id) VALUES
+(1, '2024-11-26', 'Medication C: 1 capsule every evening\nMedication D: Apply once daily', 1, 2),
+(2, '2024-11-26', 'Medication H: Apply on skin once a week', 2, 6);
