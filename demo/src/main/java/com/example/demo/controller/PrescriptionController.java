@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PrescriptionDTO;
+import com.example.demo.model.Consultation;
+import com.example.demo.model.Patient;
 import com.example.demo.model.Prescription;
+import com.example.demo.repository.ConsultationRepository;
+import com.example.demo.repository.PatientRepository;
 import com.example.demo.repository.PrescriptionRepository;
 import com.example.demo.service.PrescriptionService;
 import com.itextpdf.layout.properties.TextAlignment;
@@ -19,10 +23,14 @@ import java.util.List;
 public class PrescriptionController {
     private final PrescriptionRepository prescriptionRepository;
     private final PrescriptionService prescriptionService;
+    private final PatientRepository patientRepository;
+    private final ConsultationRepository consultationRepository;
 
-    public PrescriptionController(PrescriptionRepository prescriptionRepository, PrescriptionService prescriptionService) {
+    public PrescriptionController(PrescriptionRepository prescriptionRepository, PrescriptionService prescriptionService, PatientRepository patientRepository, ConsultationRepository consultationRepository) {
         this.prescriptionRepository = prescriptionRepository;
         this.prescriptionService = prescriptionService;
+        this.patientRepository = patientRepository;
+        this.consultationRepository = consultationRepository;
     }
 
     @GetMapping("")
@@ -33,7 +41,11 @@ public class PrescriptionController {
     }
 
     @GetMapping("/add")
-    public String showAddPrescriptionForm() {
+    public String showAddPrescriptionForm(Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
+        List<Consultation> consultations = consultationRepository.findAll();
+        model.addAttribute("consultations", consultations);
         return "add-prescription";
     }
     @PostMapping("/add")

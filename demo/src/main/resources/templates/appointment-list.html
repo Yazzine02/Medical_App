@@ -32,7 +32,8 @@
                             <tr>
                                 <th scope="col">Date</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Patient ID</th>
+                                <th scope="col">Patient First Name</th>
+                                <th scope="col">Patient Last Name</th>
                                 <th scope="col">Patient CIN</th>
                             </tr>
                         </thead>
@@ -41,7 +42,8 @@
                             <tr th:each="appointment : ${appointments}">
                                 <td th:text="${appointment.appointmentDateTime}"></td>
                                 <td th:text="${appointment.description}"></td>
-                                <td th:text="${appointment.patient.id}"></td>
+                                <td th:text="${appointment.patient.firstName}"></td>
+                                <td th:text="${appointment.patient.lastName}"></td>
                                 <td th:text="${appointment.patient.getCin()}"></td>
                                 <!--IMPLEMENT CRUD-->
                                 <td>

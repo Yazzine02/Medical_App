@@ -48,6 +48,8 @@ public class ConsultationController {
     }
     @GetMapping("/modify/{id}")
     public String showModifyConsultation(@PathVariable("id") int id, Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
         Optional<Consultation> consultation = consultationRepository.findById(id);
         if(consultation.isPresent()) {
             model.addAttribute("consultation", consultation.get());
