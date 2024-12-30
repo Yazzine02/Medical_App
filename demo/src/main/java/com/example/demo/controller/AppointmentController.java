@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Patient;
 import com.example.demo.repository.AppointmentRepository;
+import com.example.demo.repository.PatientRepository;
 import com.example.demo.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class AppointmentController {
     private AppointmentRepository appointmentRepository;
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private PatientRepository patientRepository;
+
     // Show appointment lis
     @GetMapping("/appointment-list")
     public String appointmentList(Model model) {
@@ -26,7 +31,9 @@ public class AppointmentController {
     }
     // Add a new appointment
     @GetMapping("/add-appointment")
-    public String showAddAppointmentForm() {
+    public String showAddAppointmentForm(Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
         return "add-appointment";
     }
     @PostMapping("/add-appointment")

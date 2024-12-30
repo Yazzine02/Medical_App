@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Consultation;
+import com.example.demo.model.Patient;
 import com.example.demo.model.Payment;
 import com.example.demo.model.Prescription;
+import com.example.demo.repository.ConsultationRepository;
+import com.example.demo.repository.PatientRepository;
 import com.example.demo.repository.PaymentRepository;
 import com.example.demo.service.PaymentService;
 import org.springframework.stereotype.Controller;
@@ -15,10 +19,14 @@ import java.util.List;
 public class PaymentController {
     private final PaymentRepository paymentRepository;
     private final PaymentService paymentService;
+    private final PatientRepository patientRepository;
+    private final ConsultationRepository consultationRepository;
 
-    public PaymentController(PaymentRepository paymentRepository, PaymentService paymentService) {
+    public PaymentController(PaymentRepository paymentRepository, PaymentService paymentService, PatientRepository patientRepository, ConsultationRepository consultationRepository) {
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
+        this.patientRepository = patientRepository;
+        this.consultationRepository = consultationRepository;
     }
 
     @GetMapping("")
@@ -28,7 +36,11 @@ public class PaymentController {
         return "payment";
     }
     @GetMapping("/add")
-    public String showAddPaymentForm(){
+    public String showAddPaymentForm(Model model){
+        List<Patient> patients = patientRepository.findAll();
+        List<Consultation> consultations = consultationRepository.findAll();
+        model.addAttribute("patients", patients);
+        model.addAttribute("consultations", consultations);
         return "add-payment";
     }
     @PostMapping("/add")

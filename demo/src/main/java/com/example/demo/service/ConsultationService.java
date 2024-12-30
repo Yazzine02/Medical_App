@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ConsultationUpdateDTO;
 import com.example.demo.model.Consultation;
+import com.example.demo.model.Patient;
 import com.example.demo.repository.ConsultationRepository;
 import com.example.demo.repository.PatientRepository;
 import com.example.enums.ConsultationStatus;
@@ -26,6 +27,7 @@ public class ConsultationService {
         }
         Consultation consultation = new Consultation();
         consultation.setPatient(patientRepository.findById(patientId).get());
+        patientRepository.findById(patientId).get().setWaitingRoomStatus(Patient.WaitingRoomStatus.COMPLETED);
         consultation.setPrice(price);
         consultation.setConsultationDate(LocalDateTime.now());
         consultation.setLeftToPay(price);

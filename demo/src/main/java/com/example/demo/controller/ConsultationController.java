@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ConsultationUpdateDTO;
 import com.example.demo.model.Consultation;
+import com.example.demo.model.Patient;
 import com.example.demo.repository.ConsultationRepository;
+import com.example.demo.repository.PatientRepository;
 import com.example.demo.service.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,8 @@ public class ConsultationController {
     ConsultationRepository consultationRepository;
     @Autowired
     private ConsultationService consultationService;
+    @Autowired
+    private PatientRepository patientRepository;
 
     @GetMapping("")
     public String consultationList(Model model) {
@@ -33,6 +37,8 @@ public class ConsultationController {
     }
     @GetMapping("/add")
     public String showAddConsultationFrom(Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
         return "add-consultation";
     }
     @PostMapping("/add")

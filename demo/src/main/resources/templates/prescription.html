@@ -29,8 +29,8 @@
                             <tr>
                                 <th scope="col">Patient First Name</th>
                                 <th scope="col">Patient Last Name</th>
+                                <th scope="col">Patient CIN</th>
                                 <th scope="col">Consultation ID</th>
-                                <th scope="col">Patient ID</th>
                                 <th scope="col">Date</th>
                             </tr>
                         </thead>
@@ -39,8 +39,8 @@
                             <tr th:each="prescription : ${prescriptions}">
                                 <td th:text="${prescription.consultation.patient.firstName}"></td>
                                 <td th:text="${prescription.consultation.patient.lastName}"></td>
+                                <td th:text="${prescription.consultation.patient.cin}"></td>
                                 <td th:text="${prescription.consultation.id}"></td>
-                                <td th:text="${prescription.consultation.patient.id}"></td>
                                 <td th:text="${prescription.date}"></td>
                                 <td>
                                     <a th:href="@{/prescription/view/{id}(id=${prescription.id})}" class="btn btn-info">View</a>

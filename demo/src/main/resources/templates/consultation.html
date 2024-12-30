@@ -34,7 +34,8 @@
                             <th scope="col">Price</th>
                             <th scope="col">Left To Pay</th>
                             <th scope="col">Amount Paid</th>
-                            <th scope="col">Patient ID</th>
+                            <th scope="col">Patient First Name</th>
+                            <th scope="col">Patient LastName</th>
                             <th scope="col">Patient CIN</th>
                             <th scope="col">Status</th>
                         </tr>
@@ -47,7 +48,8 @@
                         <td th:text="${consultation.price}"></td>
                         <td th:text="${consultation.leftToPay}"></td>
                         <td th:text="${consultation.totalPaid}"></td>
-                        <td th:text="${consultation.patient.id}"></td>
+                        <td th:text="${consultation.patient.firstName}"></td>
+                        <td th:text="${consultation.patient.lastName}"></td>
                         <td th:text="${consultation.patient.getCin()}"></td>
                         <td th:text="${consultation.status}"></td>
                         <!--IMPLEMENT CRUD-->
