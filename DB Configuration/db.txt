@@ -1,0 +1,219 @@
+CONFIGURATION:
+(application.properties)
+spring.application.name=demo
+spring.datasource.url=jdbc:mysql://localhost:3306/medical_app
+spring.datasource.username=user
+spring.datasource.password=0000
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.hibernate.ddl-auto=none
+
+(build.gradle)
+dependencies {
+	implementation 'com.itextpdf:itext7-core:7.2.5'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+
+DATA:
+INSERT INTO patient (id, cin, first_name, last_name, birth_date, credit, waiting_room_date, waiting_room_status) VALUES
+(1, 'A123456', 'John', 'Doe', '1990-05-14', 0.0, '2024-11-26', 'WAITING'),
+(2, 'B654321', 'Jane', 'Smith', '1985-07-20', 0.0, '2024-11-26', 'COMPLETED'),
+(3, 'C789123', 'Alice', 'Brown', '1993-03-10', 0.0, '2024-11-26', 'CANCELLED'),
+(4, 'D456789', 'Bob', 'Johnson', '1988-09-12', 0.0, '2024-11-26', 'WAITING'),
+(5, 'E147258', 'Emma', 'Williams', '1995-01-25', 0.0, NULL, 'NOT_IN_WAITING_ROOM'),
+(6, 'F369852', 'Liam', 'Davis', '1992-02-18', 0.0, '2024-11-26', 'COMPLETED'),
+(7, 'G741852', 'Olivia', 'Miller', '1997-12-06', 0.0, '2024-11-26', 'WAITING'),
+(8, 'H963852', 'Noah', 'Wilson', '1991-08-23', 0.0, '2024-11-26', 'CANCELLED'),
+(9, 'I123789', 'Sophia', 'Anderson', '1996-11-15', 0.0, NULL, 'NOT_IN_WAITING_ROOM');
+
+TRIGGERS:
+
+
+DELIMITER $$
+
+CREATE TRIGGER update_consultation_on_payment
+AFTER INSERT ON payment
+FOR EACH ROW
+BEGIN
+    -- Update total_paid and left_to_pay in the consultation table
+    UPDATE consultation
+    SET 
+        total_paid = (SELECT IFNULL(SUM(amount), 0) 
+                      FROM payment 
+                      WHERE consultation_id = NEW.consultation_id),
+        left_to_pay = price - (SELECT IFNULL(SUM(amount), 0) 
+                               FROM payment 
+                               WHERE consultation_id = NEW.consultation_id)
+    WHERE id = NEW.consultation_id;
+
+    -- Update the status if the total_paid is greater than or equal to the price
+    UPDATE consultation
+    SET 
+        status = CASE 
+                    WHEN total_paid >= price THEN 'PAID' 
+                    ELSE 'NOT_PAID' 
+                 END
+    WHERE id = NEW.consultation_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_consultation_on_payment_update
+AFTER UPDATE ON payment
+FOR EACH ROW
+BEGIN
+    -- Update total_paid and left_to_pay in the consultation table
+    UPDATE consultation
+    SET 
+        total_paid = (SELECT IFNULL(SUM(amount), 0) 
+                      FROM payment 
+                      WHERE consultation_id = NEW.consultation_id),
+        left_to_pay = price - (SELECT IFNULL(SUM(amount), 0) 
+                               FROM payment 
+                               WHERE consultation_id = NEW.consultation_id)
+    WHERE id = NEW.consultation_id;
+
+    -- Update the status if the total_paid is greater than or equal to the price
+    UPDATE consultation
+    SET 
+        status = CASE 
+                    WHEN total_paid >= price THEN 'PAID' 
+                    ELSE 'NOT_PAID' 
+                 END
+    WHERE id = NEW.consultation_id;
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER ensure_left_to_pay_before_insert
+BEFORE INSERT ON consultation
+FOR EACH ROW
+BEGIN
+    IF NEW.left_to_pay < 0 THEN
+        SET NEW.left_to_pay = 0;
+    END IF;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER ensure_left_to_pay_before_update
+BEFORE UPDATE ON consultation
+FOR EACH ROW
+BEGIN
+    IF NEW.left_to_pay < 0 THEN
+        SET NEW.left_to_pay = 0;
+    END IF;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_patient_credit_after_insert
+AFTER INSERT ON consultation
+FOR EACH ROW
+BEGIN
+    UPDATE patient
+    SET credit = (SELECT IFNULL(SUM(left_to_pay), 0)
+                  FROM consultation
+                  WHERE patient_id = NEW.patient_id)
+    WHERE id = NEW.patient_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_patient_credit_after_update
+AFTER UPDATE ON consultation
+FOR EACH ROW
+BEGIN
+    UPDATE patient
+    SET credit = (SELECT IFNULL(SUM(left_to_pay), 0)
+                  FROM consultation
+                  WHERE patient_id = NEW.patient_id)
+    WHERE id = NEW.patient_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_patient_credit_after_delete
+AFTER DELETE ON consultation
+FOR EACH ROW
+BEGIN
+    UPDATE patient
+    SET credit = (SELECT IFNULL(SUM(left_to_pay), 0)
+                  FROM consultation
+                  WHERE patient_id = OLD.patient_id)
+    WHERE id = OLD.patient_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_consultation_after_payment_delete
+AFTER DELETE ON payment
+FOR EACH ROW
+BEGIN
+    DECLARE new_total_paid DOUBLE;
+
+    -- Calculate new total_paid for the consultation
+    SET new_total_paid = (SELECT IFNULL(SUM(amount), 0)
+                          FROM payment
+                          WHERE consultation_id = OLD.consultation_id);
+
+    -- Update the consultation
+    UPDATE consultation
+    SET total_paid = new_total_paid,
+        left_to_pay = GREATEST(price - new_total_paid, 0),
+        status = CASE
+            WHEN new_total_paid >= price THEN 'PAID'
+            ELSE 'NOT_PAID'
+        END
+    WHERE id = OLD.consultation_id;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_consultation_after_payment_update
+AFTER UPDATE ON payment
+FOR EACH ROW
+BEGIN
+    DECLARE new_total_paid DOUBLE;
+
+    -- Calculate new total_paid for the consultation
+    SET new_total_paid = (SELECT IFNULL(SUM(amount), 0)
+                          FROM payment
+                          WHERE consultation_id = NEW.consultation_id);
+
+    -- Update the consultation
+    UPDATE consultation
+    SET total_paid = new_total_paid,
+        left_to_pay = GREATEST(price - new_total_paid, 0),
+        status = CASE
+            WHEN new_total_paid >= price THEN 'PAID'
+            ELSE 'NOT_PAID'
+        END
+    WHERE id = NEW.consultation_id;
+END$$
+
+DELIMITER ;
+
