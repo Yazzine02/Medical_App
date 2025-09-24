@@ -124,11 +124,11 @@ Key tables and their fields:
 ## Screenshots
 
 ### Agenda showing all weekly appointments:
-[!alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/agenda.png "Agenda")
+![alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/agenda.png "Agenda")
 ### Waiting room list showing current people in the waiting room:
-[!alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/waiting-room.png "Waiting Room")
+![alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/waiting-room.png "Waiting Room")
 ### List of All Patients:
-[!alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/patients.png "Patients")
+![alt text](https://github.com/Yazzine02/Medical_App/blob/main/screenshots/patients.png "Patients")
 
 ---
 
